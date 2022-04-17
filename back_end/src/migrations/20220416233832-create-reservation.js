@@ -18,7 +18,13 @@ module.exports = {
       },
       clientId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Clients',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       totalPrice: {
         allowNull: false,

@@ -17,7 +17,8 @@ const Attributes = {
   },
   clientId: {
     allowNull: false,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
+    foreingKey: true,
   },
   totalPrice: {
     allowNull: false,
