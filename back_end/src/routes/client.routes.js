@@ -9,7 +9,7 @@ clientRoute.route('/')
   
 clientRoute.route('/:id')
   .get(clientController.getById)
-  .put()
+  .put(validationClient, clientController.update)
   .delete();
 
 module.exports = clientRoute;
