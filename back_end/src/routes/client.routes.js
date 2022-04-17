@@ -1,10 +1,11 @@
 const clientRoute = require('express').Router();
 const clientController = require('../controllers/client');
+const validationClient = require('../middlewares/client');
 
 
 clientRoute.route('/')
   .get(clientController.getAll)
-  .post(clientController.create);
+  .post(validationClient, clientController.create);
   
 clientRoute.route('/:id')
   .get()
