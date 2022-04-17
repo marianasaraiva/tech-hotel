@@ -1,3 +1,4 @@
 const create = require('./createClientService');
+const getAll = require('./getAllClientService');
 
-module.exports = { create };
+module.exports = { create, getAll };

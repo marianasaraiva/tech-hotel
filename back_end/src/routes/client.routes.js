@@ -3,7 +3,7 @@ const clientController = require('../controllers/client');
 
 
 clientRoute.route('/')
-  .get()
+  .get(clientController.getAll)
   .post(clientController.create);
   
 clientRoute.route('/:id')

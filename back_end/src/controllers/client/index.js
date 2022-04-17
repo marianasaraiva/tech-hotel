@@ -1,3 +1,4 @@
 const create = require('./createClientController');
+const getAll = require('./getAllClientController');
 
-module.exports = { create };
+module.exports = { create, getAll };
