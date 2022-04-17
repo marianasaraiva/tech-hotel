@@ -19,6 +19,10 @@ const Attributes = {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   active: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
