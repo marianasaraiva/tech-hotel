@@ -8,7 +8,7 @@ clientRoute.route('/')
   .post(validationClient, clientController.create);
   
 clientRoute.route('/:id')
-  .get()
+  .get(clientController.getById)
   .put()
   .delete();
 
