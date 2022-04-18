@@ -1,14 +1,14 @@
-const clientRoute = require('express').Router();
+const clientRouter = require('express').Router();
 const clientController = require('../controllers/client');
 const validationClient = require('../middlewares/client');
 
-clientRoute.route('/')
+clientRouter.route('/')
   .get(clientController.getAll)
   .post(validationClient, clientController.create);
   
-clientRoute.route('/:id')
+clientRouter.route('/:id')
   .get(clientController.getById)
   .put(validationClient, clientController.update)
   .delete(clientController.deleteById);
 
-module.exports = clientRoute;
+module.exports = clientRouter;
