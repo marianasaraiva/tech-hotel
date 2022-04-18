@@ -1,9 +1,10 @@
 const reservationRouter = require('express').Router();
 const reservationController = require('../controllers/reservation');
+const auth = require('../middlewares/auth');
 
 reservationRouter.route('/')
   .get()
-  .post(reservationController.create);
+  .post(auth, reservationController.create);
   
 reservationRouter.route('/:id')
   .get()

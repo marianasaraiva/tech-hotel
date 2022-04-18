@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
     });
 
   Reservation.associate = (models) => {
-    Reservation.belongsTo = (models.Client, { foreignKey: 'clientId', as: 'client' });
+    Reservation.belongsTo(models.Client, { foreignKey: 'clientId', as: 'client' });
   };
 
   return Reservation;
