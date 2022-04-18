@@ -19,17 +19,7 @@ module.exports = {
       price: {
         allowNull: false,
         type: Sequelize.DECIMAL
-      },
-      reservationId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Reservations',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-      },   
+      }
     });
   },
   async down(queryInterface, _Sequelize) {

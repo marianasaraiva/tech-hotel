@@ -18,12 +18,7 @@ const Attributes = {
   price: {
     allowNull: false,
     type: DataTypes.DECIMAL
-  },
-  reservationId: {
-    allowNull: false,
-    type: DataTypes.INTEGER,
-    foreingKey: true,
-  },   
+  }  
 };
 
 module.exports = (sequelize) => {
