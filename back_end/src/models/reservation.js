@@ -9,7 +9,7 @@ const Attributes = {
   },
   checkIn: {
     allowNull: false,
-    type: DataTypes.INTEGER
+    type: DataTypes.DATE
   },
   quantityDays: {
     allowNull: false,
@@ -27,12 +27,16 @@ const Attributes = {
 };
 
 module.exports = (sequelize) => {
-  const Resevation = sequelize.define('Resevation',
+  const Reservation = sequelize.define('Reservation',
     Attributes,
     {
       timestamps: false,
-      tableName: 'Resevations',
+      tableName: 'Reservations',
     });
-    
-  return Resevation;
+
+  Reservation.associate = (models) => {
+    Reservation.belongsTo = (models.Client, { foreignKey: 'clientId', as: 'client' });
+  };
+
+  return Reservation;
 };

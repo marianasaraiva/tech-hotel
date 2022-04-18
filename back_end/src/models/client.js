@@ -36,6 +36,10 @@ module.exports = (sequelize) => {
       timestamps: false,
       tableName: 'Clients',
     });
-    
+
+  Client.associate = (models) => {
+    Client.hasMany(models.Reservation, { foreignKey: 'clientId', as: 'reservations' });
+  };
+
   return Client;
 };

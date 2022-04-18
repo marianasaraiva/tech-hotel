@@ -10,7 +10,7 @@ module.exports = {
       },
       checkIn: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.DATE
       },
       quantityDays: {
         allowNull: false,
