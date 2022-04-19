@@ -7,7 +7,7 @@ const loginService = async ({ email, password }) => {
 
   if (!client) return null;
 
-  const token = generationToken({ email });
+  const token = generationToken({ email, id: client.id });
 
   return token;
 };
