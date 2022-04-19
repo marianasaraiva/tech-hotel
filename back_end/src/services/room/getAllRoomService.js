@@ -5,6 +5,7 @@ const getAllRoomService = async () => {
     include:
       { model: Reservation, as: 'reservations', through: { attributes: [] } },
     });
+    
   return room;
 };
 

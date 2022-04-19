@@ -16,7 +16,9 @@ const reservationSchema = Joi.object({
 
 const validationReservation = (req, _res, next) => {
   const { error } = reservationSchema.validate(req.body);
+
   if (error) throw error;
+  
   next();
 };
 

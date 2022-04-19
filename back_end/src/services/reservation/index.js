@@ -4,4 +4,10 @@ const getById = require('./getByIdReservationService');
 const update = require('./updateReservationService');
 const deleteById = require('./deleteByIdReservationService');
 
-module.exports = { create, getAll, getById, update, deleteById };
+module.exports = {
+  create,
+  getAll,
+  getById,
+  update,
+  deleteById
+};

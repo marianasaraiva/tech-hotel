@@ -8,5 +8,5 @@ module.exports = (client) => {
 
   const token = jwt.sign(client, process.env.JWT_SECRET, jwtConfig);
 
-  return (token);
+  return token;
 };

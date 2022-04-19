@@ -1,3 +1,5 @@
 const getAll = require('./getAllRoomService');
 
-module.exports = { getAll };
+module.exports = {
+  getAll,
+};

@@ -11,7 +11,9 @@ const loginSchema = Joi.object({
 
 const isValidLogin = (req, _res, next) => {
   const { error } = loginSchema.validate(req.body);
+
   if (error) throw error;
+  
   next();
 };
 

@@ -1,3 +1,5 @@
 const getAll = require('./getAllRoomController');
 
-module.exports = { getAll };
+module.exports = { 
+  getAll,
+};
