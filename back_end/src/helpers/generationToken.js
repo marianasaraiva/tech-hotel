@@ -7,7 +7,7 @@ module.exports = (client) => {
       algorithm: 'HS256',
     };
   
-    const token = jwt.sign({ email: client.email }, process.env.JWT_SECRET, jwtConfig);
+    const token = jwt.sign(client, process.env.JWT_SECRET, jwtConfig);
   
     return (token);
   } catch (error) {

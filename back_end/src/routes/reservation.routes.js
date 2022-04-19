@@ -8,8 +8,8 @@ reservationRouter.route('/')
   .post(validationReservation, auth, reservationController.create);
   
 reservationRouter.route('/:id')
-  .get()
-  .put()
-  .delete();
+  .get(auth, reservationController.getById)
+  .put(validationReservation, auth, reservationController.update)
+  .delete(auth, reservationController.deleteById);
 
 module.exports = reservationRouter;
