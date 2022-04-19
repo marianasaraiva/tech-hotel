@@ -4,7 +4,7 @@ const auth = require('../middlewares/auth');
 const validationReservation = require('../middlewares/reservation');
 
 reservationRouter.route('/')
-  .get()
+  .get(reservationController.getAll)
   .post(validationReservation, auth, reservationController.create);
   
 reservationRouter.route('/:id')
