@@ -1,4 +1,4 @@
-const validateToken = require('../utils/validateToken');
+const validateToken = require('../helpers/validateToken');
 
 module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
@@ -9,6 +9,7 @@ module.exports = async (req, res, next) => {
 
   const decoded = await validateToken(token);
 
+  req.user = decoded.data.email;
   if (!decoded) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
