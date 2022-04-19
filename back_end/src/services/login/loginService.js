@@ -1,5 +1,5 @@
 const { Client } = require('../../models');
-const generationToken = require('../../utils/generationToken');
+const generationToken = require('../../helpers/generationToken');
 
 const loginService = async ({ email, password }) => {
   
