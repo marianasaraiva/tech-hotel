@@ -10,6 +10,8 @@ const reservationSchema = Joi.object({
   totalPrice: Joi.number()
     .min(300)
     .required(),
+  roomId:Joi.number()
+    .required(),
 });
 
 const validationReservation = (req, _res, next) => {
