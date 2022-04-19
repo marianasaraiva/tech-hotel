@@ -9,7 +9,7 @@ reservationRouter.route('/')
   
 reservationRouter.route('/:id')
   .get(auth, reservationController.getById)
-  .put()
-  .delete();
+  .put(validationReservation, auth, reservationController.update)
+  .delete(auth, reservationController.deleteById);
 
 module.exports = reservationRouter;
