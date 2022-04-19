@@ -1,3 +1,4 @@
 const create = require('./createReservationController');
+const getAll = require('./getAllReservationController');
 
-module.exports = { create };
+module.exports = { create, getAll };
