@@ -7,7 +7,7 @@ const reservationSchema = Joi.object({
     .min(1)
     .required(),
   totalPrice: Joi.number()
-    .min(100)
+    .min(300)
     .required(),
 });
 
