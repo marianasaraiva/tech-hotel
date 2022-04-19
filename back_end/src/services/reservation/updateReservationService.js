@@ -5,7 +5,8 @@ const updateReservationService = async ({ id, checkIn, quantityDays, totalPrice,
   
   if (!reservationExist) return null;
 
-  const updateReservation = await Reservation.update({ checkIn, quantityDays, totalPrice, clientId }, { where: { id }});
+  const updateReservation = await Reservation
+    .update({ checkIn, quantityDays, totalPrice, clientId }, { where: { id }});
   
   return updateReservation[0];
 };

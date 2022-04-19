@@ -4,4 +4,10 @@ const getById = require('./getByIdClientController');
 const update = require('./updateClientController');
 const deleteById = require('./deleteByIdClientController');
 
-module.exports = { create, getAll, getById, update, deleteById };
+module.exports = {
+  create,
+  getAll,
+  getById,
+  update,
+  deleteById
+};

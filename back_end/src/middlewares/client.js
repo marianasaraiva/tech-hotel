@@ -16,9 +16,11 @@ const clientSchema = Joi.object({
     .required(),
 });
 
-const validationClient = (req, res, next) => {
+const validationClient = (req, _res, next) => {
   const { error } = clientSchema.validate(req.body);
+
   if (error) throw error;
+  
   next();
 };
 

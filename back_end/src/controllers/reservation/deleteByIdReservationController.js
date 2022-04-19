@@ -3,6 +3,7 @@ const reservationService = require('../../services/reservation');
 const deleteByIdClientController = async (req, res, next) => {
   try {
     const { id } = req.params;
+    
     const result = await reservationService.deleteById({ id });
 
     if (!result) return res.status(404).json({ message: 'Reservation does not exist' });

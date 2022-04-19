@@ -8,10 +8,12 @@ module.exports = async (req, res, next) => {
   }
 
   const decoded = await validateToken(token);
+
   req.user = decoded;
+
   if (!decoded) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
-
+  
   next();
 };
