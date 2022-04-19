@@ -8,7 +8,7 @@ reservationRouter.route('/')
   .post(validationReservation, auth, reservationController.create);
   
 reservationRouter.route('/:id')
-  .get()
+  .get(auth, reservationController.getById)
   .put()
   .delete();
 
