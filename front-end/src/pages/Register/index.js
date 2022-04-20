@@ -1,11 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import fetchAPI from '../../services/fetchApi';
 
 function Register() {
   const [fullName, setFullName] = useState('');
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
-  const [ password, setPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    const validateData = () => {
+      (fullName && cpf && email && password)
+        ? setDisabled(false)
+        : setDisabled(true)
+    };
+    
+    validateData();
+  }, [fullName, cpf, email, password]);
 
   const sendForm = async () => {
     const data = {
@@ -68,6 +79,7 @@ function Register() {
         <button
           type="button"
           onClick={ sendForm }
+          disabled={ disabled }
         >
           Enviar
         </button>
