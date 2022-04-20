@@ -14,7 +14,7 @@ function Register() {
         ? setDisabled(false)
         : setDisabled(true)
     };
-    
+  
     validateData();
   }, [fullName, cpf, email, password]);
 
@@ -88,4 +88,4 @@ function Register() {
   )
 }
 
-export default Register
+export default Register;
