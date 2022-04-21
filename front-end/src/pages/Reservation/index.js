@@ -1,32 +1,60 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import fetchAPI from '../../services/fetchApi';
-
+import Context from '../../context/Context';
 
 function Reservation() {
   const [checkIn, setCheckIn] = useState('');
   const [quantityDays, setQuantityDays] = useState('');
+  const [priceRooms, setPriceRooms] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [rooms, setRooms] = useState('');
+
+  const { token } = useContext(Context);
 
   useEffect(() => {
     const getApiRooms = async () => {
       const method = 'get';
       const url = 'http://localhost:3001/room';
 
-      const returnApiRooms = await fetchAPI(method, url, null);
+      const returnApiRooms = await fetchAPI(method, url);
 
       setRooms(returnApiRooms.data);
     };
     getApiRooms();
   }, []);
 
-  console.log(rooms);
+  useEffect(() => {
+    const validateData = () => {
+      (checkIn && quantityDays && priceRooms)
+        ? setDisabled(false)
+        : setDisabled(true)
+    };
+
+    validateData();
+  }, [checkIn, quantityDays, priceRooms]);
 
   const sendForm = async () => {
+    const roomId = rooms.find(r => r.price.includes(priceRooms) && r.reservations.length === 0).id;
+    console.log(roomId);
+    const headers = {
+      authorization: token,
+    };
+    const data = {
+      checkIn, 
+      quantityDays,
+      totalPrice: quantityDays * priceRooms,
+      roomId,
+    };
+    const method = 'post';
+    const url = 'http://localhost:3001/reservation';
 
+    const saveReservation = await fetchAPI(method, url, data, headers);
+
+    console.log(saveReservation);
 
     setCheckIn('');
     setQuantityDays('');
+    setPriceRooms('');
 
     // navigate('');
   }
@@ -49,6 +77,29 @@ function Reservation() {
           value={ quantityDays }
           onChange={ ({ target }) => setQuantityDays(target.value) }
         />
+
+        <select
+          value={priceRooms}
+          onChange={ ({ target }) => setPriceRooms(target.value) }
+        >
+        {!priceRooms &&
+          <option 
+          value=""
+          >
+          Selecione o seu quarto
+          </option>
+        }
+        { 
+          rooms && rooms.map((e) => (
+            <option
+              value={e.price}
+              key={e.id}
+            >
+              {`${e.type} - ${e.price}`}
+            </option>
+          ))
+        } 
+        </select>
 
         <button
           type="button"
