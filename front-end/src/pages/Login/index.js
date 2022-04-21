@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react';
 import fetchAPI from '../../services/fetchApi';
+import Context from '../../context/Context';
 
 function Login() {
+  const { setToken } = useContext(Context);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
@@ -12,7 +15,7 @@ function Login() {
         ? setDisabled(false)
         : setDisabled(true)
     };
-  
+
     validateData();
   }, [email, password]);
 
@@ -30,7 +33,8 @@ function Login() {
     setEmail('');
     setPassword('');
 
-    console.log(response.data.token);
+    setToken(response.data.token);
+    console.log(response);
   }
 
   return (
