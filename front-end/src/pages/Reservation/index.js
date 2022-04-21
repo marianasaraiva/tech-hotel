@@ -8,6 +8,7 @@ function Reservation() {
   const [priceRooms, setPriceRooms] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [rooms, setRooms] = useState('');
+  const [doneReservation, setDoneReservation] = useState('');
 
   const { token } = useContext(Context);
 
@@ -50,14 +51,24 @@ function Reservation() {
 
     const saveReservation = await fetchAPI(method, url, data, headers);
 
-    console.log(saveReservation);
-
     setCheckIn('');
     setQuantityDays('');
     setPriceRooms('');
 
-    // navigate('');
+    getReservationClient(saveReservation.data.id);
   }
+
+  const getReservationClient = async (id) => {
+    const headers = {
+      authorization: token,
+    };
+    const method = 'get';
+    const url = `http://localhost:3001/reservation/${id}`;
+
+    const getReservation = await fetchAPI(method, url, null, headers);
+    console.log(getReservation.data);
+    setDoneReservation(getReservation.data);
+  };
 
   return (<div>
     <h3>Reservation</h3>
@@ -65,7 +76,7 @@ function Reservation() {
     <input
           id="checkIn"
           type="text"
-          placeholder="Data de entrada"
+          placeholder="Check-in: aaaa/mm/dd"
           value={ checkIn }
           onChange={ ({ target }) => setCheckIn(target.value) }
         />
@@ -109,6 +120,35 @@ function Reservation() {
           Enviar
         </button>
     </form>
+    {
+      doneReservation &&
+      <div>
+          <h3>Reserva concluída sucesso!</h3> 
+          <p>{ doneReservation.client.fullName }</p>
+        {/* <table>
+          <thead>
+            <tr>
+              <th>Nome completo</th>
+              <th>E-mail</th>
+              <th>Quarto</th>
+              <th>Check-in</th>
+              <th>Estadia</th>
+              <th>Preço total da reserva</th>
+            </tr>
+          </thead>
+          <thbody>
+            <tr>
+              <td>{ doneReservation.client.fullName }</td>
+              <td>{ doneReservation.client.email }</td>
+              <td>{ doneReservation.room.type }</td>
+              <td>{ doneReservation.checkIn }</td>
+              <td>{ `${doneReservation.quantityDays} dias` }</td>
+              <td>{ `R$ ${doneReservation.totalPrice},00` }</td>
+            </tr>
+          </thbody>
+        </table> */}
+      </div>
+     }
   </div>
   )
 };
