@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import fetchAPI from '../../services/fetchApi';
+import { validateData, validateFields } from '../../utils/registerValidate';
 
 function Register() {
   const [fullName, setFullName] = useState('');
@@ -12,16 +13,13 @@ function Register() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const validateData = () => {
-      (fullName && cpf && email && password)
-        ? setDisabled(false)
-        : setDisabled(true)
-    };
-  
-    validateData();
+    validateData(fullName, cpf, email, password, setDisabled);
   }, [fullName, cpf, email, password]);
 
   const sendForm = async () => {
+    const validateTrue = validateFields(fullName, cpf, email, password);
+    if (validateTrue) return;
+
     const data = {
       fullName,
       cpf,
