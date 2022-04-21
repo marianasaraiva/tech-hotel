@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import fetchAPI from '../../services/fetchApi';
 import Context from '../../context/Context';
+import { validateData, validateFields } from '../../utils/reservationValidate';
 
 function Reservation() {
   const [checkIn, setCheckIn] = useState('');
@@ -25,16 +26,13 @@ function Reservation() {
   }, []);
 
   useEffect(() => {
-    const validateData = () => {
-      (checkIn && quantityDays && priceRooms)
-        ? setDisabled(false)
-        : setDisabled(true)
-    };
-
-    validateData();
+    validateData(checkIn, quantityDays, priceRooms, setDisabled);
   }, [checkIn, quantityDays, priceRooms]);
 
   const sendForm = async () => {
+    const validateTrue = validateFields(checkIn, quantityDays);
+    if (validateTrue) return;
+
     const roomId = rooms.find(r => r.price.includes(priceRooms) && r.reservations.length === 0).id;
 
     const headers = {
@@ -43,7 +41,7 @@ function Reservation() {
     const data = {
       checkIn, 
       quantityDays,
-      totalPrice: quantityDays * priceRooms,
+      totalPrice: (quantityDays - 1 ) * priceRooms,
       roomId,
     };
     const method = 'post';
@@ -74,45 +72,58 @@ function Reservation() {
     <div>
       <h3>Reservation</h3>
       <form>
-        <input
-          id="checkIn"
-          type="text"
-          placeholder="Check-in: aaaa/mm/dd"
-          value={ checkIn }
-          onChange={ ({ target }) => setCheckIn(target.value) }
-        />
-      
-        <input
-          id="quantityDays"
-          type="text"
-          placeholder="Quantidade dias"
-          value={ quantityDays }
-          onChange={ ({ target }) => setQuantityDays(target.value) }
-        />
+        <label htmlFor="checkIn">
+          Check-in
+          <input
+            id="checkIn"
+            type="date"
+            placeholder="Check-in: aaaa/mm/dd"
+            required
+            value={ checkIn }
+            onChange={ ({ target }) => setCheckIn(target.value) }
+          />
+        </label>
 
-        <select
-          value={priceRooms}
-          onChange={ ({ target }) => setPriceRooms(target.value) }
-        >
-        {
-          !priceRooms &&
-            <option 
-              value=""
-            >
-              Selecione o seu quarto
-            </option>
-        }
-        { 
-          rooms && rooms.map((e) => (
-            <option
-              value={e.price}
-              key={e.id}
-            >
-              {`${e.type} - ${e.price}`}
-            </option>
-          ))
-        } 
-        </select>
+        <label htmlFor="checkOut">
+          Quantidade dias
+          <input
+            id="quantityDays"
+            type="text"
+            placeholder="Quantidade dias"
+            required
+            value={ quantityDays }
+            onChange={ ({ target }) => setQuantityDays(target.value) }
+          />
+        </label>
+
+        <label htmlFor="select">
+          Escolha seu quarto:
+          <select
+            id="select"
+            value={priceRooms}
+            required
+            onChange={ ({ target }) => setPriceRooms(target.value) }
+          >
+          {
+            !priceRooms &&
+              <option 
+                value=""
+              >
+                Selecione
+              </option>
+          }
+          { 
+            rooms && rooms.map((e) => (
+              <option
+                value={e.price}
+                key={e.id}
+              >
+                {`${e.type} - ${e.price}`}
+              </option>
+            ))
+          } 
+          </select>
+        </label>
 
         <button
           type="button"
