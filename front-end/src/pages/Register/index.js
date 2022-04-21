@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import fetchAPI from '../../services/fetchApi';
 
 function Register() {
@@ -9,7 +9,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const validateData = () => {
@@ -39,7 +39,7 @@ function Register() {
     setEmail('');
     setPassword('');
 
-    history.push('/login');
+    navigate('/login');
   }
 
   return (

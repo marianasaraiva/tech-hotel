@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import fetchAPI from '../../services/fetchApi';
 import Context from '../../context/Context';
+import { useNavigate } from 'react-router-dom';
+
 
 function Login() {
   const { setToken } = useContext(Context);
@@ -8,6 +10,8 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const validateData = () => {
@@ -34,7 +38,8 @@ function Login() {
     setPassword('');
 
     setToken(response.data.token);
-    console.log(response);
+
+    navigate('/reservation');
   }
 
   return (
