@@ -1,9 +1,9 @@
-import Routes from './routes';
+import RoutesComponent from './routes';
 
 function App() {
   return (
     <div>
-      <Routes/>
+      <RoutesComponent/>
     </div>
   );
 }
