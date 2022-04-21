@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import fetchAPI from '../../services/fetchApi';
 
 function Register() {
@@ -7,6 +8,8 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
+
+  const history = useHistory();
 
   useEffect(() => {
     const validateData = () => {
@@ -29,14 +32,14 @@ function Register() {
     const method = 'post';
     const url = 'http://localhost:3001/client';
 
-    const response = await fetchAPI(method, url, data);
+    await fetchAPI(method, url, data);
 
     setFullName('');
     setCpf('');
     setEmail('');
     setPassword('');
 
-    console.log(response);
+    history.push('/login');
   }
 
   return (
