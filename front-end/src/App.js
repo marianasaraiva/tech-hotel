@@ -1,10 +1,9 @@
-import Routes from './routes';
+import RoutesComponent from './routes';
 
 function App() {
   return (
     <div>
-      <h2>App Jonatas, Nathalia e Mariana</h2>
-      <Routes/>
+      <RoutesComponent/>
     </div>
   );
 }
