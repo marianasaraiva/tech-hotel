@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { ContainerDiv, ContainerForm, ContainerMain, ContainerSection } from './styles';
+
 
 function Contact() {
   const [fullName, setFullName] = useState('');
@@ -27,8 +29,8 @@ function Contact() {
   }
 
   return (
-    <div>
-      <div>
+    <ContainerMain>
+      <ContainerSection>
         {
           sendMessage
           ?
@@ -41,17 +43,17 @@ function Contact() {
             <h3>Agradecemos o contato! Em breve entraremos em contato com você</h3>
           </div>
         }
-      </div>
+      </ContainerSection>
       
-      <div>
-        <div>
+      <ContainerSection>
+        <ContainerDiv>
           <h3>Envie sua mensagem</h3>
           <p>Entre em contato com a equipe do Tech Hotel através do nosso e-mail suporte@tech_hotel.com.br ou preenchendo o formulário de contato ao lado.</p>
-        </div>
+        </ContainerDiv>
 
-        <div>
+        <ContainerDiv>
           <h3>Formulário de mensagens online</h3>
-          <form>
+          <ContainerForm>
           <input
               id="fullName"
               type="text"
@@ -83,10 +85,10 @@ function Contact() {
             >
               Enviar
             </button>
-          </form>
-        </div>
-      </div>
-    </div>
+          </ContainerForm>
+        </ContainerDiv>
+      </ContainerSection>
+    </ContainerMain>
   )
 }
 

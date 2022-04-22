@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import fetchAPI from '../../services/fetchApi';
 import Context from '../../context/Context';
 import { validateData, validateFields } from '../../utils/loginValidate';
+import { ContainerLogin } from './styles';
 
 function Login() {
   const { setToken } = useContext(Context);
@@ -40,7 +41,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <ContainerLogin>
       <h1>Login Page</h1>
 
       <form>
@@ -73,7 +74,7 @@ function Login() {
         <span>Ainda não é cadastrado?</span>
         <Link to='/register'>Registre-se aqui</Link>
       </p>
-    </div>
+    </ContainerLogin>
   )
 }
 
