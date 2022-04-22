@@ -28,6 +28,6 @@ module.exports = (sequelize) => {
       timestamps: false,
       tableName: 'Rooms',
     });
-    
+
   return Room;
 };
