@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import fetchAPI from '../../services/fetchApi';
 import Context from '../../context/Context';
 import { validateData, validateFields } from '../../utils/reservationValidate';
+import TableReservation from '../../components/TableReservation';
 
 function Reservation() {
   const [checkIn, setCheckIn] = useState('');
@@ -9,20 +11,44 @@ function Reservation() {
   const [priceRooms, setPriceRooms] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [rooms, setRooms] = useState('');
-  const [doneReservation, setDoneReservation] = useState('');
+  const [saveClientReservation, setSaveClientReservation] = useState([]);
+
+  const { doneReservation, setDoneReservation } = useContext(Context);
 
   const { token } = useContext(Context);
+
+  const { id } = useParams();
 
   useEffect(() => {
     const getApiRooms = async () => {
       const method = 'get';
       const url = 'http://localhost:3001/room';
 
-      const returnApiRooms = await fetchAPI(method, url);
+      const response = await fetchAPI(method, url);
 
-      setRooms(returnApiRooms.data);
+      setRooms(response.data);
     };
     getApiRooms();
+
+    const getApiReservationById = async () => {
+      const headers = {
+        authorization: token,
+      };
+      const method = 'get';
+      const urlClient = `http://localhost:3001/client/${id}`;
+
+      const responseClient = await fetchAPI(method, urlClient, null, headers);
+
+      const reservationId = responseClient.data.reservations[0].id;
+
+      const urlReservation = `http://localhost:3001/reservation/${reservationId}`;
+
+      const responseReservation = await fetchAPI(method, urlReservation, null, headers);
+      console.log(responseReservation);
+
+      setSaveClientReservation(responseReservation);
+    };
+    getApiReservationById();
   }, []);
 
   useEffect(() => {
@@ -137,28 +163,7 @@ function Reservation() {
         doneReservation &&
         <div>
           <h3>Reserva concluída sucesso!</h3> 
-          <table aling="center" border="1">
-            <thead>
-              <tr>
-                <th>Nome completo</th>
-                <th>E-mail</th>
-                <th>Quarto</th>
-                <th>Check-in</th>
-                <th>Estadia</th>
-                <th>Preço total da reserva</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{ doneReservation.client.fullName }</td>
-                <td>{ doneReservation.client.email }</td>
-                <td>{ doneReservation.rooms[0].type }</td>
-                <td>{ doneReservation.checkIn }</td>
-                <td>{ `${doneReservation.quantityDays} dias` }</td>
-                <td>{ `R$ ${doneReservation.totalPrice},00` }</td>
-              </tr>
-            </tbody>
-          </table>
+          <TableReservation />
         </div>
       }
     </div>
