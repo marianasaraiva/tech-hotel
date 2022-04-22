@@ -4,11 +4,11 @@ const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const token = await loginService({ email, password });
+    const response = await loginService({ email, password });
 
-    if (!token) return res.status(400).json({ message: 'Invalid fields' });
+    if (!response) return res.status(400).json({ message: 'Invalid fields' });
 
-    return res.status(201).json({ token });
+    return res.status(201).json(response);
   } catch (error) {
     next(error);
   }
