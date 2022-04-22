@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import fetchAPI from '../../services/fetchApi';
 import Context from '../../context/Context';
 import { useNavigate } from 'react-router-dom';
@@ -68,6 +69,11 @@ function Login() {
           Enviar
         </button>
       </form>
+
+      <p>
+        <span>Ainda não é cadastrado?</span>
+        <Link to='/register'>Registre-se aqui</Link>
+      </p>
     </div>
   )
 }
