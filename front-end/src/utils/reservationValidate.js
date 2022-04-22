@@ -11,8 +11,6 @@ export const validateFields = (checkIn, quantityDays) => {
     return true;
   }
 
-  console.log(quantityDays);
-
   if (Number(quantityDays) < 1) {
     alert("Quantidade de dias precisa ser maior que zero");
     return true;

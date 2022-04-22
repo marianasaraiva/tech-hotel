@@ -12,7 +12,7 @@ function RoutesComponent() {
       <Route path="/" element={ <Home/> } />
       <Route path="/login" element={ <Login/> } />
       <Route path="/register" element={ <Register/> } />
-      <Route path="/reservation" element={ <Reservation/> } />
+      <Route path="/reservation/:id" element={ <Reservation/> } />
       <Route path="/contact" element={ <Contact/> } />
     </Routes>
   );
