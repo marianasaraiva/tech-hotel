@@ -4,7 +4,7 @@ import Context from '../../context/Context';
 
 function TableReservation() {
   const { doneReservation } = useContext(Context);
-  console.log('tabela', doneReservation);
+
   return (
     doneReservation.length !== 0 &&
       <div>

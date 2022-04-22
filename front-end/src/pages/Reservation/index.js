@@ -11,7 +11,6 @@ function Reservation() {
   const [priceRooms, setPriceRooms] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [rooms, setRooms] = useState('');
-  const [saveClientReservation, setSaveClientReservation] = useState([]);
 
   const { doneReservation, setDoneReservation } = useContext(Context);
 
@@ -35,17 +34,15 @@ function Reservation() {
         authorization: token,
       };
       const method = 'get';
-      const urlClient = `http://localhost:3001/client/${id}`;
+      const urlClient = `http://localhost:3001/reservation`;
 
-      const responseClient = await fetchAPI(method, urlClient, null, headers);
-  
-      const reservationId = responseClient.data.reservations[3].id;
+      const response = await fetchAPI(method, urlClient, null, headers);
 
-      const urlReservation = `http://localhost:3001/reservation/${reservationId}`;
+      const reservationsByClient = response.data.filter(e => (
+        e.clientId === +id
+      ));
 
-      const responseReservation = await fetchAPI(method, urlReservation, null, headers);
-
-      setDoneReservation([...doneReservation, responseReservation.data]);
+      setDoneReservation([...reservationsByClient]);    
     };
     getApiReservationById();
   }, []);
