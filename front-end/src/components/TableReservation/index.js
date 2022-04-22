@@ -6,7 +6,7 @@ function TableReservation() {
   const { doneReservation } = useContext(Context);
   console.log('tabela', doneReservation);
   return (
-    doneReservation &&
+    doneReservation.length !== 0 &&
       <div>
         <table aling="center" border="1">
             <thead>
@@ -20,14 +20,16 @@ function TableReservation() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>{ doneReservation.client.fullName }</td>
-                <td>{ doneReservation.client.email }</td>
-                <td>{ doneReservation.rooms[0].type }</td>
-                <td>{ doneReservation.checkIn }</td>
-                <td>{ `${doneReservation.quantityDays} dias` }</td>
-                <td>{ `R$ ${doneReservation.totalPrice},00` }</td>
-              </tr>
+              { doneReservation.map((e, i) => (
+                <tr key={ i }>
+                 <td>{ e.client.fullName }</td>
+                 <td>{ e.client.email }</td>
+                 <td>{ e.rooms[0].type }</td>
+                 <td>{ e.checkIn }</td>
+                 <td>{ `${e.quantityDays} dias` }</td>
+                 <td>{ `R$ ${e.totalPrice},00` }</td>
+               </tr>
+              )) }
             </tbody>
           </table>
       </div>

@@ -38,15 +38,14 @@ function Reservation() {
       const urlClient = `http://localhost:3001/client/${id}`;
 
       const responseClient = await fetchAPI(method, urlClient, null, headers);
-
-      const reservationId = responseClient.data.reservations[0].id;
+  
+      const reservationId = responseClient.data.reservations[3].id;
 
       const urlReservation = `http://localhost:3001/reservation/${reservationId}`;
 
       const responseReservation = await fetchAPI(method, urlReservation, null, headers);
-      console.log(responseReservation);
 
-      setSaveClientReservation(responseReservation);
+      setDoneReservation([...doneReservation, responseReservation.data]);
     };
     getApiReservationById();
   }, []);
@@ -91,7 +90,7 @@ function Reservation() {
 
     const getReservation = await fetchAPI(method, url, null, headers);
 
-    setDoneReservation(getReservation.data);
+    setDoneReservation([...doneReservation, getReservation.data]);
   };
 
   return (
@@ -160,7 +159,7 @@ function Reservation() {
         </button>
       </form>
       {
-        doneReservation &&
+        doneReservation.length !== 0 &&
         <div>
           <h3>Reserva concluída sucesso!</h3> 
           <TableReservation />
