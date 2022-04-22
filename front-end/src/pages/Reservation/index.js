@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import fetchAPI from '../../services/fetchApi';
 import Context from '../../context/Context';
+import { validateData, validateFields } from '../../utils/reservationValidate';
 
 function Reservation() {
   const [checkIn, setCheckIn] = useState('');
@@ -25,25 +26,22 @@ function Reservation() {
   }, []);
 
   useEffect(() => {
-    const validateData = () => {
-      (checkIn && quantityDays && priceRooms)
-        ? setDisabled(false)
-        : setDisabled(true)
-    };
-
-    validateData();
+    validateData(checkIn, quantityDays, priceRooms, setDisabled);
   }, [checkIn, quantityDays, priceRooms]);
 
   const sendForm = async () => {
+    const validateTrue = validateFields(checkIn, quantityDays);
+    if (validateTrue) return;
+
     const roomId = rooms.find(r => r.price.includes(priceRooms) && r.reservations.length === 0).id;
-    console.log(roomId);
+
     const headers = {
       authorization: token,
     };
     const data = {
       checkIn, 
       quantityDays,
-      totalPrice: quantityDays * priceRooms,
+      totalPrice: (quantityDays - 1 ) * priceRooms,
       roomId,
     };
     const method = 'post';
@@ -66,51 +64,66 @@ function Reservation() {
     const url = `http://localhost:3001/reservation/${id}`;
 
     const getReservation = await fetchAPI(method, url, null, headers);
-    console.log(getReservation.data);
+
     setDoneReservation(getReservation.data);
   };
 
-  return (<div>
-    <h3>Reservation</h3>
-    <form>
-    <input
-          id="checkIn"
-          type="text"
-          placeholder="Check-in: aaaa/mm/dd"
-          value={ checkIn }
-          onChange={ ({ target }) => setCheckIn(target.value) }
-        />
+  return (
+    <div>
+      <h3>Reservation</h3>
+      <form>
+        <label htmlFor="checkIn">
+          Check-in
+          <input
+            id="checkIn"
+            type="date"
+            placeholder="Check-in: aaaa/mm/dd"
+            required
+            value={ checkIn }
+            onChange={ ({ target }) => setCheckIn(target.value) }
+          />
+        </label>
 
-        <input
-          id="quantityDays"
-          type="text"
-          placeholder="Quantidade dias"
-          value={ quantityDays }
-          onChange={ ({ target }) => setQuantityDays(target.value) }
-        />
+        <label htmlFor="checkOut">
+          Quantidade dias
+          <input
+            id="quantityDays"
+            type="text"
+            placeholder="Quantidade dias"
+            required
+            value={ quantityDays }
+            onChange={ ({ target }) => setQuantityDays(target.value) }
+          />
+        </label>
 
-        <select
-          value={priceRooms}
-          onChange={ ({ target }) => setPriceRooms(target.value) }
-        >
-        {!priceRooms &&
-          <option 
-          value=""
+        <label htmlFor="select">
+          Escolha seu quarto:
+          <select
+            id="select"
+            value={priceRooms}
+            required
+            onChange={ ({ target }) => setPriceRooms(target.value) }
           >
-          Selecione o seu quarto
-          </option>
-        }
-        { 
-          rooms && rooms.map((e) => (
-            <option
-              value={e.price}
-              key={e.id}
-            >
-              {`${e.type} - ${e.price}`}
-            </option>
-          ))
-        } 
-        </select>
+          {
+            !priceRooms &&
+              <option 
+                value=""
+              >
+                Selecione
+              </option>
+          }
+          { 
+            rooms && rooms.map((e) => (
+              <option
+                value={e.price}
+                key={e.id}
+              >
+                {`${e.type} - ${e.price}`}
+              </option>
+            ))
+          } 
+          </select>
+        </label>
 
         <button
           type="button"
@@ -119,37 +132,36 @@ function Reservation() {
         >
           Enviar
         </button>
-    </form>
-    {
-      doneReservation &&
-      <div>
+      </form>
+      {
+        doneReservation &&
+        <div>
           <h3>Reserva concluída sucesso!</h3> 
-          <p>{ doneReservation.client.fullName }</p>
-        {/* <table>
-          <thead>
-            <tr>
-              <th>Nome completo</th>
-              <th>E-mail</th>
-              <th>Quarto</th>
-              <th>Check-in</th>
-              <th>Estadia</th>
-              <th>Preço total da reserva</th>
-            </tr>
-          </thead>
-          <thbody>
-            <tr>
-              <td>{ doneReservation.client.fullName }</td>
-              <td>{ doneReservation.client.email }</td>
-              <td>{ doneReservation.room.type }</td>
-              <td>{ doneReservation.checkIn }</td>
-              <td>{ `${doneReservation.quantityDays} dias` }</td>
-              <td>{ `R$ ${doneReservation.totalPrice},00` }</td>
-            </tr>
-          </thbody>
-        </table> */}
-      </div>
-     }
-  </div>
+          <table aling="center" border="1">
+            <thead>
+              <tr>
+                <th>Nome completo</th>
+                <th>E-mail</th>
+                <th>Quarto</th>
+                <th>Check-in</th>
+                <th>Estadia</th>
+                <th>Preço total da reserva</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{ doneReservation.client.fullName }</td>
+                <td>{ doneReservation.client.email }</td>
+                <td>{ doneReservation.rooms[0].type }</td>
+                <td>{ doneReservation.checkIn }</td>
+                <td>{ `${doneReservation.quantityDays} dias` }</td>
+                <td>{ `R$ ${doneReservation.totalPrice},00` }</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
   )
 };
 

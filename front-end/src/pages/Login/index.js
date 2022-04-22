@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import fetchAPI from '../../services/fetchApi';
 import Context from '../../context/Context';
 import { useNavigate } from 'react-router-dom';
-
+import { validateData, validateFields } from '../../utils/loginValidate';
 
 function Login() {
   const { setToken } = useContext(Context);
@@ -14,16 +14,13 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const validateData = () => {
-      (email && password)
-        ? setDisabled(false)
-        : setDisabled(true)
-    };
-
-    validateData();
+    validateData(email, password, setDisabled);
   }, [email, password]);
 
   const sendForm = async () => {
+    const validateTrue = validateFields(email, password);
+    if (validateTrue) return;
+
     const data = {
       email,
       password,
