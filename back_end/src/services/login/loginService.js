@@ -8,7 +8,7 @@ const loginService = async ({ email, password }) => {
 
   const token = generationToken({ email, id: client.id });
 
-  return token;
+  return { id: client.id, token };
 };
 
 module.exports = loginService;
