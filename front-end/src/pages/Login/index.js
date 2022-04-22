@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import fetchAPI from '../../services/fetchApi';
 import Context from '../../context/Context';
-import { useNavigate } from 'react-router-dom';
 import { validateData, validateFields } from '../../utils/loginValidate';
 
 function Login() {
@@ -37,7 +36,7 @@ function Login() {
 
     setToken(response.data.token);
 
-    navigate('/reservation');
+    navigate(`/reservation/${response.data.id}`);
   }
 
   return (
