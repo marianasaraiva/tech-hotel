@@ -4,6 +4,8 @@ import fetchAPI from '../../services/fetchApi';
 import Context from '../../context/Context';
 import { validateData, validateFields } from '../../utils/reservationValidate';
 import TableReservation from '../../components/TableReservation';
+import { ContainerMain, ContainerForm, Teste } from './styles';
+import Header from '../../components/Header';
 
 function Reservation() {
   const [checkIn, setCheckIn] = useState('');
@@ -92,76 +94,83 @@ function Reservation() {
 
   return (
     <div>
-      <h3>Reservation</h3>
-      <form>
-        <label htmlFor="checkIn">
-          Check-in
-          <input
-            id="checkIn"
-            type="date"
-            placeholder="Check-in: aaaa/mm/dd"
-            required
-            value={ checkIn }
-            onChange={ ({ target }) => setCheckIn(target.value) }
-          />
-        </label>
+      <Header/>
+      <ContainerMain>
+        <h1>Reservation</h1>
+      </ContainerMain>
+      <Teste>
+        <ContainerForm>
+          <label htmlFor="checkIn">
+            Check-in
+            <input
+              id="checkIn"
+              type="date"
+              min="2022-04-23"
+              max="2023-04-23"
+              placeholder="Check-in: aaaa/mm/dd"
+              required
+              value={ checkIn }
+              onChange={ ({ target }) => setCheckIn(target.value) }
+            />
+          </label>
 
-        <label htmlFor="checkOut">
-          Quantidade dias
-          <input
-            id="quantityDays"
-            type="text"
-            placeholder="Quantidade dias"
-            required
-            value={ quantityDays }
-            onChange={ ({ target }) => setQuantityDays(target.value) }
-          />
-        </label>
+          <label htmlFor="quantityDays">
+            Estadia
+            <input
+              id="quantityDays"
+              type="text"
+              placeholder="Quantidade dias"
+              required
+              value={ quantityDays }
+              onChange={ ({ target }) => setQuantityDays(target.value) }
+            />
+          </label>
 
-        <label htmlFor="select">
-          Escolha seu quarto:
-          <select
-            id="select"
-            value={priceRooms}
-            required
-            onChange={ ({ target }) => setPriceRooms(target.value) }
+          <label htmlFor="select">
+            Escolha seu quarto:
+            <select
+              id="select"
+              value={priceRooms}
+              required
+              onChange={ ({ target }) => setPriceRooms(target.value) }
+            >
+            {
+              !priceRooms &&
+                <option 
+                  value=""
+                >
+                  Selecione
+                </option>
+            }
+            { 
+              rooms && rooms.map((e) => (
+                <option
+                  value={e.price}
+                  key={e.id}
+                >
+                  {`${e.type} - ${e.price}`}
+                </option>
+              ))
+            } 
+            </select>
+          </label>
+
+          <button
+            type="button"
+            onClick={ sendForm }
+            disabled={ disabled }
           >
-          {
-            !priceRooms &&
-              <option 
-                value=""
-              >
-                Selecione
-              </option>
-          }
-          { 
-            rooms && rooms.map((e) => (
-              <option
-                value={e.price}
-                key={e.id}
-              >
-                {`${e.type} - ${e.price}`}
-              </option>
-            ))
-          } 
-          </select>
-        </label>
-
-        <button
-          type="button"
-          onClick={ sendForm }
-          disabled={ disabled }
-        >
-          Enviar
-        </button>
-      </form>
-      {
-        doneReservation.length !== 0 &&
-        <div>
-          <h3>Reserva concluída sucesso!</h3> 
-          <TableReservation />
-        </div>
-      }
+            Enviar
+          </button>
+        </ContainerForm>
+        {
+          doneReservation.length !== 0 &&
+          <div>
+            <h3>Reserva(s) concluída(s) com sucesso!</h3>
+            <TableReservation />
+          </div>
+        }
+      </Teste>
     </div>
   )
 };
