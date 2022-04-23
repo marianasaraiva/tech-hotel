@@ -6,9 +6,9 @@ function Header() {
   return (
     <NavBar>
       <Link to="/">Tech Hotel</Link>
-      <Link to="/login">Login</Link>
       <Link to="/register">Register</Link>
-      <Link to="/reservation">Reservation</Link>
+      <Link to="/login">Login</Link>
+      {/* <Link to="/reservation">Reservation</Link> */}
       <Link to="/contact">Contact</Link>
     </NavBar>
   )
