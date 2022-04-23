@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ContainerDiv, ContainerForm, ContainerMain, ContainerSection } from './styles';
-
+import Header from '../../components/Header';
 
 function Contact() {
   const [fullName, setFullName] = useState('');
@@ -25,30 +25,31 @@ function Contact() {
     setMessage('');
 
     setSendMessage(false);
-    // navigate('/login');
   }
 
   return (
-    <ContainerMain>
-      <ContainerSection>
-        {
-          sendMessage
-          ?
-            <div>
-              <h1>Entre em contato conosco</h1>
-              <p>Tire todas as suas dúvidas ou envie suas sugestões para nossa equipe.</p>
-            </div>
-          :
-          <div>
-            <h3>Agradecemos o contato! Em breve entraremos em contato com você</h3>
-          </div>
-        }
-      </ContainerSection>
+    <div>
+      <Header/>
+      <ContainerMain>
+        <h1>Entre em contato conosco</h1>
+        <p>Tire todas as suas dúvidas ou envie suas sugestões para nossa equipe.</p>
+      </ContainerMain>
       
       <ContainerSection>
         <ContainerDiv>
-          <h3>Envie sua mensagem</h3>
-          <p>Entre em contato com a equipe do Tech Hotel através do nosso e-mail suporte@tech_hotel.com.br ou preenchendo o formulário de contato ao lado.</p>
+          {
+            sendMessage
+            ?
+              <div>
+                <h3>Envie sua mensagem</h3>
+                <p>Entre em contato com a equipe do Tech Hotel através do nosso e-mail suporte@tech_hotel.com.br ou preenchendo o formulário de contato ao lado.</p>
+              </div>
+            :
+              <div>
+                <h3>Agradecemos o contato!</h3>
+                <p>Em breve entraremos em contato com você</p>
+              </div>
+          }      
         </ContainerDiv>
 
         <ContainerDiv>
@@ -88,7 +89,7 @@ function Contact() {
           </ContainerForm>
         </ContainerDiv>
       </ContainerSection>
-    </ContainerMain>
+    </div>
   )
 }
 
