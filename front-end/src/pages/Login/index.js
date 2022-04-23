@@ -3,7 +3,10 @@ import { useNavigate, Link } from 'react-router-dom';
 import fetchAPI from '../../services/fetchApi';
 import Context from '../../context/Context';
 import { validateData, validateFields } from '../../utils/loginValidate';
-import { ContainerLogin } from './styles';
+import Picture from '../../images/amsterda.jpg';
+
+import { ContainerLogin, ContainerForm } from './styles';
+import Header from '../../components/Header';
 
 function Login() {
   const { setToken } = useContext(Context);
@@ -42,38 +45,40 @@ function Login() {
 
   return (
     <ContainerLogin>
-      <h1>Login Page</h1>
+      <ContainerForm>
+        <Header/>
+        <form>
+          <h1>Login</h1>
+          <input
+            id="email"
+            type="text"
+            placeholder="E-mail"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
+          />
 
-      <form>
-        <input
-          id="email"
-          type="text"
-          placeholder="E-mail"
-          value={ email }
-          onChange={ ({ target }) => setEmail(target.value) }
-        />
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            value={ password }
+            onChange={ ({ target }) => setPassword(target.value) }
+          />
 
-        <input
-          id="password"
-          type="text"
-          placeholder="Password"
-          value={ password }
-          onChange={ ({ target }) => setPassword(target.value) }
-        />
-
-        <button
-          type="button"
-          onClick={ sendForm }
-          disabled={ disabled }
-        >
-          Enviar
-        </button>
-      </form>
-
-      <p>
+          <button
+            type="button"
+            onClick={ sendForm }
+            disabled={ disabled }
+          >
+            Enviar
+          </button>
+        </form> 
         <span>Ainda não é cadastrado?</span>
-        <Link to='/register'>Registre-se aqui</Link>
-      </p>
+        <Link to='/register'>Registre-se aqui</Link>  
+      </ContainerForm>
+      <ContainerForm>
+        <img src={ Picture } alt={ Picture }></img>
+      </ContainerForm>
     </ContainerLogin>
   )
 }
