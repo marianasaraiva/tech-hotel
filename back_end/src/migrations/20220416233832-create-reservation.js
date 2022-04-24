@@ -12,6 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      checkOut: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
       quantityDays: {
         allowNull: false,
         type: Sequelize.INTEGER

@@ -4,6 +4,9 @@ const reservationSchema = Joi.object({
   checkIn: Joi.date()
     .iso()
     .required(),
+  checkOut: Joi.date()
+    .iso()
+    .required(),
   quantityDays: Joi.number()
     .min(1)
     .required(),

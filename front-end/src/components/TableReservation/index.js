@@ -15,6 +15,7 @@ function TableReservation() {
               <th>E-mail</th>
               <th>Quarto</th>
               <th>Check-in</th>
+              <th>Check-out</th>
               <th>Estadia</th>
               <th>Preço total da reserva</th>
             </tr>
@@ -26,6 +27,7 @@ function TableReservation() {
                 <td>{ e.client.email }</td>
                 <td>{ e.rooms[0].type }</td>
                 <td>{ e.checkIn }</td>
+                <td>{ e.checkOut }</td>
                 <td>{ `${e.quantityDays} dias` }</td>
                 <td>{ `R$ ${e.totalPrice},00` }</td>
               </tr>
