@@ -20,6 +20,22 @@ function Reservation() {
 
   const { id } = useParams();
 
+  const dateCalendary = (currentDay) => {
+    let date = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+
+    if (currentDay) {
+      date = new Date();
+    }
+
+    let month = date.getUTCMonth() + 1;
+    let day = date.getUTCDate();
+    let year = date.getUTCFullYear();
+    
+    month = (+month < 10) && `0${month}`;
+
+    return `${year}-${month}-${day}`;
+  }
+
   useEffect(() => {
     const getApiRooms = async () => {
       const method = 'get';
@@ -105,8 +121,8 @@ function Reservation() {
             <input
               id="checkIn"
               type="date"
-              min="2022-04-23"
-              max="2023-04-23"
+              min={ dateCalendary(true) }
+              max={ dateCalendary(false) }
               placeholder="Check-in: aaaa/mm/dd"
               required
               value={ checkIn }

@@ -5,7 +5,7 @@ import Context from '../../context/Context';
 import { validateData, validateFields } from '../../utils/loginValidate';
 import Picture from '../../images/amsterda.jpg';
 
-import { ContainerLogin, ContainerForm } from './styles';
+import { ContainerLogin, ContainerForm, ContainerImage } from './styles';
 import Header from '../../components/Header';
 
 function Login() {
@@ -76,9 +76,9 @@ function Login() {
         <span>Ainda não é cadastrado?</span>
         <Link to='/register'>Registre-se aqui</Link>  
       </ContainerForm>
-      <ContainerForm>
+      <ContainerImage>
         <img src={ Picture } alt={ Picture }></img>
-      </ContainerForm>
+      </ContainerImage>
     </ContainerLogin>
   )
 }
