@@ -3,9 +3,11 @@ import styled from 'styled-components';
 export const NavBar = styled.header`
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
-  padding: 20px;
-
+  margin: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+  width: 100%;
+  
   a {
     text-decoration: none;
     color: black;
@@ -17,7 +19,7 @@ export const NavBar = styled.header`
   }
 
   a:nth-child(1) {
-    color: red;
+    color: brown;
   }
 
   a:nth-child(1):hover {

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import fetchAPI from '../../services/fetchApi';
 import { validateData, validateFields } from '../../utils/registerValidate';
+import { ContainerForm, ContainerMain } from './styles';
+import Pictures from '../../images/amsterdam.jpg';
+import Header from '../../components/Header';
 
 function Register() {
   const [fullName, setFullName] = useState('');
@@ -41,51 +44,56 @@ function Register() {
   }
 
   return (
-    <div>
-      <h1>Register Page</h1>
+    <ContainerMain>
+      <ContainerForm>
+        <Header/>
+        <form>        
+          <h1>Register</h1>
+          <input
+            id="fullName"
+            type="text"
+            placeholder="Nome completo"
+            value={ fullName }
+            onChange={ ({ target }) => setFullName(target.value) }
+          />
 
-      <form>
-        <input
-          id="fullName"
-          type="text"
-          placeholder="Nome completo"
-          value={ fullName }
-          onChange={ ({ target }) => setFullName(target.value) }
-        />
+          <input
+            id="cpf"
+            type="text"
+            placeholder="CPF"
+            value={ cpf }
+            onChange={ ({ target }) => setCpf(target.value) }
+          />
 
-        <input
-          id="cpf"
-          type="text"
-          placeholder="CPF"
-          value={ cpf }
-          onChange={ ({ target }) => setCpf(target.value) }
-        />
+          <input
+            id="email"
+            type="text"
+            placeholder="E-mail"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
+          />
 
-        <input
-          id="email"
-          type="text"
-          placeholder="E-mail"
-          value={ email }
-          onChange={ ({ target }) => setEmail(target.value) }
-        />
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            value={ password }
+            onChange={ ({ target }) => setPassword(target.value) }
+          />
 
-        <input
-          id="password"
-          type="text"
-          placeholder="Password"
-          value={ password }
-          onChange={ ({ target }) => setPassword(target.value) }
-        />
-
-        <button
-          type="button"
-          onClick={ sendForm }
-          disabled={ disabled }
-        >
-          Enviar
-        </button>
-      </form>
-    </div>
+          <button
+            type="button"
+            onClick={ sendForm }
+            disabled={ disabled }
+          >
+            Enviar
+          </button>
+        </form>
+      </ContainerForm>
+      <ContainerForm>
+        <img src={ Pictures } alt="Pictures" />
+      </ContainerForm>
+    </ContainerMain>
   )
 }
 
