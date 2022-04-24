@@ -13,6 +13,14 @@ function Reservation() {
   const [priceRooms, setPriceRooms] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [rooms, setRooms] = useState('');
+  const [checkOut, setCheckOut] = useState('');
+
+  const diffDates = (params) => {
+    let diff = Math.abs(new Date(checkIn
+      .replace(/-/g,'/')) - new Date(params.replace(/-/g,'/')));
+
+    setQuantityDays(diff/1000/60/60/24);
+  }
 
   const { doneReservation, setDoneReservation } = useContext(Context);
 
@@ -60,7 +68,7 @@ function Reservation() {
         e.clientId === +id
       ));
 
-      setDoneReservation([...reservationsByClient]);    
+      setDoneReservation([...reservationsByClient]);
     };
     getApiReservationById();
   }, []);
@@ -130,6 +138,23 @@ function Reservation() {
             />
           </label>
 
+          <label htmlFor="checkOut">
+            Check-out
+            <input
+              id="checkOut"
+              type="date"
+              min={ checkIn }
+              max={ dateCalendary(false) }
+              placeholder="Check-in: aaaa/mm/dd"
+              required
+              value={ checkOut }
+              onChange={ ({ target }) => {
+                setCheckOut(target.value);
+                diffDates(target.value);
+              } }
+            />
+          </label>
+
           <label htmlFor="quantityDays">
             Estadia
             <input
@@ -138,7 +163,7 @@ function Reservation() {
               placeholder="Quantidade dias"
               required
               value={ quantityDays }
-              onChange={ ({ target }) => setQuantityDays(target.value) }
+              readOnly
             />
           </label>
 
