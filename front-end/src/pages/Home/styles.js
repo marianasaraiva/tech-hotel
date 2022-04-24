@@ -49,4 +49,12 @@ export const ContainerMain = styled.main`
   span {
     color: brown;
   }
+
+  @media screen and (max-width: 800px) {
+    font-size: 0.9em;
+  }
+
+  @media screen and (max-width: 400px) {
+    font-size: 0.8em;
+  }
 `;
