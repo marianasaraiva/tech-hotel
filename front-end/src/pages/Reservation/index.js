@@ -99,6 +99,7 @@ function Reservation() {
     const saveReservation = await fetchAPI(method, url, data, headers);
 
     setCheckIn('');
+    setCheckOut('');
     setQuantityDays('');
     setPriceRooms('');
 

@@ -26,8 +26,8 @@ function TableReservation() {
                 <td>{ e.client.fullName }</td>
                 <td>{ e.client.email }</td>
                 <td>{ e.rooms[0].type }</td>
-                <td>{ e.checkIn }</td>
-                <td>{ e.checkOut }</td>
+                <td>{ (e.checkIn).slice(0, 10) }</td>
+                <td>{ (e.checkOut).slice(0, 10) }</td>
                 <td>{ `${e.quantityDays} dias` }</td>
                 <td>{ `R$ ${e.totalPrice},00` }</td>
               </tr>
