@@ -27,7 +27,7 @@ export const ContainerForm = styled.div`
   width: 50%;
 
   form {
-    padding: 100px;
+    padding: 100px 0px;
   }
 
   h1 {
@@ -59,17 +59,29 @@ export const ContainerForm = styled.div`
     width: 80vh;
   }
   
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 400px) {
     width: 90vh;
+
+    form {
+      padding: 60px 0px;
+    }
+
+    input {
+      width: 90%;
+    }
+
+    button {
+      width: 90%;
+    }
   }
 `;
   
-  export const ContainerImage = styled.div`
+export const ContainerImage = styled.div`
   width: 50%;
   @media screen and (max-width: 800px) {
     display: none;
   }
-  `;
+`;
   
   // a:nth-child(4) {
   //   color: brown;

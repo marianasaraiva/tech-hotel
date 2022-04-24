@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import fetchAPI from '../../services/fetchApi';
 import { validateData, validateFields } from '../../utils/registerValidate';
-import { ContainerForm, ContainerMain } from './styles';
+import { ContainerForm, ContainerMain, ContainerImage } from './styles';
 import Pictures from '../../images/amsterdam.jpg';
 import Header from '../../components/Header';
 
@@ -90,9 +90,9 @@ function Register() {
           </button>
         </form>
       </ContainerForm>
-      <ContainerForm>
+      <ContainerImage>
         <img src={ Pictures } alt="Pictures" />
-      </ContainerForm>
+      </ContainerImage>
     </ContainerMain>
   )
 }
