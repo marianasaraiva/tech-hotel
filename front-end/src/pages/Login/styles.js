@@ -41,7 +41,7 @@ export const ContainerForm = styled.div`
     text-align: center;
     margin-bottom: 40px;
     height: 20px;
-    };
+  };
 
   button {
     width: 100%;
@@ -57,17 +57,26 @@ export const ContainerForm = styled.div`
   
   @media screen and (max-width: 800px) {
     width: 80vh;
+
+    form {
+      padding: 50px 0px;
+    }
   }
   
   @media screen and (max-width: 400px) {
     width: 90vh;
 
     form {
-      padding: 60px 0px;
+      padding: 30px 0px;
+    }
+
+    h1 {
+      padding-bottom: 30px;
     }
 
     input {
       width: 90%;
+      margin-bottom: 20px;
     }
 
     button {
