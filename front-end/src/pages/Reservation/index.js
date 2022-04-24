@@ -74,11 +74,11 @@ function Reservation() {
   }, []);
 
   useEffect(() => {
-    validateData(checkIn, quantityDays, priceRooms, setDisabled);
-  }, [checkIn, quantityDays, priceRooms]);
+    validateData(checkIn, checkOut, quantityDays, priceRooms, setDisabled);
+  }, [checkIn, checkOut, quantityDays, priceRooms]);
 
   const sendForm = async () => {
-    const validateTrue = validateFields(checkIn, quantityDays);
+    const validateTrue = validateFields(checkIn, checkOut);
     if (validateTrue) return;
 
     const roomId = rooms.find(r => r.price.includes(priceRooms) && r.reservations.length === 0).id;
@@ -87,7 +87,8 @@ function Reservation() {
       authorization: token,
     };
     const data = {
-      checkIn, 
+      checkIn,
+      checkOut,
       quantityDays,
       totalPrice: (quantityDays - 1 ) * priceRooms,
       roomId,

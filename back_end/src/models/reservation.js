@@ -11,6 +11,10 @@ const Attributes = {
     allowNull: false,
     type: DataTypes.DATE
   },
+  checkOut: {
+    allowNull: false,
+    type: DataTypes.DATE
+  },
   quantityDays: {
     allowNull: false,
     type: DataTypes.INTEGER
