@@ -9,9 +9,13 @@ export const ContainerLogin = styled.main`
   text-align: center;
   
   img {
-    position: relative;
     width: 100%;
     height: 100vh;   
+  }
+
+  @media screen and (max-width: 800px) {
+    align-items: center;
+    width: 100%;
   }
 `;
   
@@ -33,10 +37,10 @@ export const ContainerForm = styled.div`
 
   input {
     padding: 10px 0px;
-      width: 100%;
-      text-align: center;
-      margin-bottom: 40px;
-      height: 20px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+    height: 20px;
     };
 
   button {
@@ -50,8 +54,23 @@ export const ContainerForm = styled.div`
   button:hover {
     background-color: orange;
   }
+  
+  @media screen and (max-width: 800px) {
+    width: 80vh;
+  }
+  
+  @media screen and (max-width: 800px) {
+    width: 90vh;
+  }
+`;
+  
+  export const ContainerImage = styled.div`
+  width: 50%;
+  @media screen and (max-width: 800px) {
+    display: none;
+  }
   `;
-
-// a:nth-child(4) {
-//   color: brown;
-// }
+  
+  // a:nth-child(4) {
+  //   color: brown;
+  // }
