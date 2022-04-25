@@ -1,81 +1,91 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import fetchAPI from '../../services/fetchApi';
-import Context from '../../context/Context';
-import { validateData, validateFields } from '../../utils/reservationValidate';
-import TableReservation from '../../components/TableReservation';
-import { ContainerTitle, ContainerForm, ContainerMain, ContainerPage, ContainerReservation } from './styles';
+
 import Header from '../../components/Header';
+import TableReservation from '../../components/TableReservation';
+import Context from '../../context/Context';
+
+import fetchAPI from '../../services/fetchApi';
+import { validateData, validateFields } from '../../utils/reservationValidate';
+import { dateCalendary, diffDates } from '../../utils/calendaryValidate';
+import { url, method, headers } from '../../utils/constants';
+
+import { 
+  ContainerTitle,
+  ContainerForm,
+  ContainerMain,
+  ContainerPage,
+  ContainerReservation
+} from './styles';
 
 function Reservation() {
   const [checkIn, setCheckIn] = useState('');
   const [quantityDays, setQuantityDays] = useState('');
   const [priceRooms, setPriceRooms] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const [rooms, setRooms] = useState('');
+  const [rooms, setRooms] = useState([]);
   const [checkOut, setCheckOut] = useState('');
-
-  const diffDates = (params) => {
-    let diff = Math.abs(new Date(checkIn
-      .replace(/-/g,'/')) - new Date(params.replace(/-/g,'/')));
-
-    setQuantityDays(diff/1000/60/60/24);
-  }
+  const [selectRooms, setSelectRooms] = useState([]);
 
   const { doneReservation, setDoneReservation } = useContext(Context);
-
   const { token } = useContext(Context);
-
   const { id } = useParams();
 
-  const dateCalendary = (currentDay) => {
-    let date = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
-
-    if (currentDay) {
-      date = new Date();
-    }
-
-    let month = date.getUTCMonth() + 1;
-    let day = date.getUTCDate();
-    let year = date.getUTCFullYear();
-    
-    month = (+month < 10) && `0${month}`;
-
-    return `${year}-${month}-${day}`;
-  }
+  useEffect(() => {
+    getApiReservationById();
+    getApiRooms();
+  }, []);
 
   useEffect(() => {
-    const getApiRooms = async () => {
-      const method = 'get';
-      const url = 'http://localhost:3001/room';
-
-      const response = await fetchAPI(method, url);
-
-      setRooms(response.data);
-    };
-    getApiRooms();
-
-    const getApiReservationById = async () => {
-      const headers = {
-        authorization: token,
-      };
-      const method = 'get';
-      const urlClient = `http://localhost:3001/reservation`;
-
-      const response = await fetchAPI(method, urlClient, null, headers);
-
-      const reservationsByClient = response.data.filter(e => (
-        e.clientId === +id
-      ));
-
-      setDoneReservation([...reservationsByClient]);
-    };
-    getApiReservationById();
-  }, []);
+    roomFilter();
+  }, [rooms]);
 
   useEffect(() => {
     validateData(checkIn, checkOut, quantityDays, priceRooms, setDisabled);
   }, [checkIn, checkOut, quantityDays, priceRooms]);
+  
+  const getApiRooms = async () => {
+    const response = await fetchAPI(method.GET, url.ROOM);
+
+    setRooms(response.data);
+  };
+
+  const getApiReservationById = async () => {
+    const response = await fetchAPI(method.GET, url.RESERVATION, null, headers(token));
+
+    const reservationsByClient = response.data.filter(e => (
+      e.clientId === +id
+    ));
+
+    setDoneReservation([...reservationsByClient]);
+  };
+
+  const getReservationClient = async (id) => {
+    const getReservation = await fetchAPI(method.GET,`${url.RESERVATION}/${id}`, null, headers(token));
+
+    setDoneReservation([...doneReservation, getReservation.data]);
+  };
+
+  const roomFilter = () => {
+    const roomLux = rooms.filter((e) => e.type === 'Suíte Luxo')
+      .find((e) => e.reservations.length === 0);
+
+    const roomExecutive = rooms.filter((e) => e.type === 'Suíte Executiva')
+      .find((e) => e.reservations.length === 0);
+
+    const roomStandard = rooms.filter((e) => e.type === 'Quarto Standard')
+      .find((e) => e.reservations.length === 0);
+
+    const array = [];
+
+    if (roomLux) array.push(roomLux);
+
+    if (roomExecutive) array.push(roomExecutive);
+        
+    if (roomStandard) array.push(roomStandard);
+
+    setSelectRooms(array);
+    };
 
   const sendForm = async () => {
     const validateTrue = validateFields(checkIn, checkOut);
@@ -83,40 +93,24 @@ function Reservation() {
 
     const roomId = rooms.find(r => r.price.includes(priceRooms) && r.reservations.length === 0).id;
 
-    const headers = {
-      authorization: token,
-    };
     const data = {
       checkIn,
       checkOut,
       quantityDays,
-      totalPrice: (quantityDays - 1 ) * priceRooms,
+      totalPrice: +quantityDays * +priceRooms,
       roomId,
     };
-    const method = 'post';
-    const url = 'http://localhost:3001/reservation';
 
-    const saveReservation = await fetchAPI(method, url, data, headers);
+    const saveReservation = await fetchAPI(method.POST, url.RESERVATION, data, headers(token));
 
     setCheckIn('');
     setCheckOut('');
     setQuantityDays('');
     setPriceRooms('');
 
+    getApiRooms();
     getReservationClient(saveReservation.data.id);
   }
-
-  const getReservationClient = async (id) => {
-    const headers = {
-      authorization: token,
-    };
-    const method = 'get';
-    const url = `http://localhost:3001/reservation/${id}`;
-
-    const getReservation = await fetchAPI(method, url, null, headers);
-
-    setDoneReservation([...doneReservation, getReservation.data]);
-  };
 
   return (
     <ContainerPage>
@@ -149,12 +143,12 @@ function Reservation() {
               type="date"
               min={ checkIn }
               max={ dateCalendary(false) }
-              placeholder="Check-in: aaaa/mm/dd"
+              placeholder="Check-out: aaaa/mm/dd"
               required
               value={ checkOut }
               onChange={ ({ target }) => {
                 setCheckOut(target.value);
-                diffDates(target.value);
+                diffDates(checkIn, target.value, setQuantityDays);
               } }
             />
           </label>
@@ -181,14 +175,10 @@ function Reservation() {
             >
             {
               !priceRooms &&
-                <option 
-                  value=""
-                >
-                  Selecione
-                </option>
+                <option value="">Selecione</option>
             }
             { 
-              rooms && rooms.map((e) => (
+              selectRooms && selectRooms.map((e) => (
                 <option
                   value={e.price}
                   key={e.id}

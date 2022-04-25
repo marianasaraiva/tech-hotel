@@ -1,12 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import fetchAPI from '../../services/fetchApi';
-import Context from '../../context/Context';
-import { validateData, validateFields } from '../../utils/loginValidate';
-import Picture from '../../images/amsterda.jpg';
 
-import { ContainerLogin, ContainerForm, ContainerImage } from './styles';
 import Header from '../../components/Header';
+import Context from '../../context/Context';
+
+import fetchAPI from '../../services/fetchApi';
+import { validateData, validateFields } from '../../utils/loginValidate';
+import { url, method } from '../../utils/constants';
+
+import {
+  ContainerLogin,
+  ContainerForm,
+  ContainerImage
+} from './styles';
+import Picture from '../../images/amsterda.jpg';
 
 function Login() {
   const { setToken } = useContext(Context);
@@ -30,10 +37,9 @@ function Login() {
       password,
     };
 
-    const method = 'post';
-    const url = 'http://localhost:3001/login';
-
-    const response = await fetchAPI(method, url, data);
+    const response = await fetchAPI(method.POST, url.LOGIN, data);
+    
+    if(response.err) return 
 
     setEmail('');
     setPassword('');

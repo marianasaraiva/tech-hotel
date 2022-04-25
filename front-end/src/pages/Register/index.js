@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+
+import Header from '../../components/Header';
+
 import fetchAPI from '../../services/fetchApi';
 import { validateData, validateFields } from '../../utils/registerValidate';
-import { ContainerForm, ContainerMain, ContainerImage } from './styles';
+import { url, method } from '../../utils/constants';
+
+import {
+  ContainerForm,
+  ContainerMain,
+  ContainerImage
+} from './styles';
 import Pictures from '../../images/amsterdam.jpg';
-import Header from '../../components/Header';
 
 function Register() {
   const [fullName, setFullName] = useState('');
@@ -30,10 +38,7 @@ function Register() {
       password,
     };
 
-    const method = 'post';
-    const url = 'http://localhost:3001/client';
-
-    await fetchAPI(method, url, data);
+    await fetchAPI(method.POST, url.CLIENT, data);
 
     setFullName('');
     setCpf('');
