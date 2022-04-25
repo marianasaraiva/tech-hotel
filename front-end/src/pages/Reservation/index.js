@@ -46,7 +46,7 @@ function Reservation() {
   
   const getApiRooms = async () => {
     const response = await fetchAPI(method.GET, url.ROOM);
-  
+
     setRooms(response.data);
   };
 
