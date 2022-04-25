@@ -12,8 +12,9 @@ function Reservation() {
   const [quantityDays, setQuantityDays] = useState('');
   const [priceRooms, setPriceRooms] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const [rooms, setRooms] = useState('');
+  const [rooms, setRooms] = useState([]);
   const [checkOut, setCheckOut] = useState('');
+  const [selectRooms, setSelectRooms] = useState([]);
 
   const diffDates = (params) => {
     let diff = Math.abs(new Date(checkIn
@@ -43,17 +44,47 @@ function Reservation() {
 
     return `${year}-${month}-${day}`;
   }
+  useEffect(() => {
+      const roomFilter = () => {
+        const roomExecutive = rooms.filter((e) => e.type === 'Suíte Executiva')
+        .find((e) => e.reservations.length === 0);
+
+        const roomLux = rooms.filter((e) => e.type === 'Suíte Luxo')
+        .find((e) => e.reservations.length === 0);
+
+        const roomStandard = rooms.filter((e) => e.type === 'Quarto Standard')
+        .find((e) => e.reservations.length === 0);
+
+        const array = [];
+
+      if (roomExecutive) {
+         array.push(roomExecutive);
+        }
+      if (roomLux) {
+         array.push(roomLux);
+       }
+      if (roomStandard) {
+         array.push(roomStandard);
+      }
+      setSelectRooms(array);
+
+      // console.log('selectRooms', selectRooms);
+      // console.log('rooms', rooms);
+      
+    };
+    roomFilter();
+  }, [rooms]);
+  
+  const getApiRooms = async () => {
+    const method = 'get';
+    const url = 'http://localhost:3001/room';
+  
+    const response = await fetchAPI(method, url);
+  
+    setRooms(response.data);
+  };
 
   useEffect(() => {
-    const getApiRooms = async () => {
-      const method = 'get';
-      const url = 'http://localhost:3001/room';
-
-      const response = await fetchAPI(method, url);
-
-      setRooms(response.data);
-    };
-    getApiRooms();
 
     const getApiReservationById = async () => {
       const headers = {
@@ -71,6 +102,8 @@ function Reservation() {
       setDoneReservation([...reservationsByClient]);
     };
     getApiReservationById();
+    getApiRooms();
+
   }, []);
 
   useEffect(() => {
@@ -90,7 +123,7 @@ function Reservation() {
       checkIn,
       checkOut,
       quantityDays,
-      totalPrice: (quantityDays - 1 ) * priceRooms,
+      totalPrice: +quantityDays * +priceRooms,
       roomId,
     };
     const method = 'post';
@@ -102,6 +135,8 @@ function Reservation() {
     setCheckOut('');
     setQuantityDays('');
     setPriceRooms('');
+
+    getApiRooms();
 
     getReservationClient(saveReservation.data.id);
   }
@@ -188,7 +223,7 @@ function Reservation() {
                 </option>
             }
             { 
-              rooms && rooms.map((e) => (
+              selectRooms && selectRooms.map((e) => (
                 <option
                   value={e.price}
                   key={e.id}
