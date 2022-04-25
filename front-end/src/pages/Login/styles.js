@@ -63,6 +63,10 @@ export const ContainerForm = styled.div`
     }
   }
   
+  a:nth-child(4) {
+    color: brown;
+  }
+
   @media screen and (max-width: 400px) {
     width: 90vh;
 
@@ -92,7 +96,3 @@ export const ContainerImage = styled.div`
     display: none;
   }
 `;
-  
-  // a:nth-child(4) {
-  //   color: brown;
-  // }

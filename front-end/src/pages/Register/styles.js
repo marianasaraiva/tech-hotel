@@ -92,7 +92,3 @@ export const ContainerImage = styled.div`
     display: none;
   }
 `;
-  
-  // a:nth-child(4) {
-  //   color: brown;
-  // }
