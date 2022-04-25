@@ -55,16 +55,16 @@ export const ContainerForm = styled.div`
     background-color: orange;
   }
   
-  @media screen and (max-width: 800px) {
-    width: 80vh;
-    
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+
     form {
       padding: 50px 0px;
     }
   }
   
   @media screen and (max-width: 400px) {
-    width: 90vh;
+    width: 100%;
 
     form {
       padding: 30px 0px;
@@ -88,7 +88,7 @@ export const ContainerForm = styled.div`
 export const ContainerImage = styled.div`
   width: 50%;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     display: none;
   }
 `;
