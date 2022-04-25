@@ -1,11 +1,39 @@
 import styled from 'styled-components';
 import Picture from '../../images/amsterda.jpg';
 
+export const ContainerPage = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
 export const ContainerMain = styled.main`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1em;;
+  width: 100%;
+
+  @media screen and (max-width: 1100px) {
+    flex-direction: column;
+    width: 60%;
+  }
+
+  @media screen and (max-width: 550px) {
+    flex-direction: column;
+    width: 100%;
+  }
+`;
+
+
+export const ContainerTitle = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 
   background-image: url(${ Picture  });
   background-size: cover;
@@ -36,55 +64,74 @@ export const ContainerMain = styled.main`
 `;
   
   export const ContainerForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  text-align: center;
-  padding: 40px;
-  font-family: 'Montserrat', sans-serif;
-  width: 20%;
-  
-  
-  input {
-    margin: 20px 0px;
-    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
     text-align: center;
-    height: 40px;
+    padding-right: 1em;
+    min-height: 450px;
+    width: 20%;
+
+    input {
+      width: 300px;
+      text-align: center;
+      height: 40px;
+      };
+
+    select {
+      width: 300px;
+      text-align: center;
+      height: 45px;
+    }
+
+    button {
+      width: 300px;
+      height: 45px;
+      text-align: center;
+      background-color: brown;
+      color: white;
     };
+    
+    button:hover {
+      background-color: orange;
+    }
+  
+    @media screen and (max-width: 900px) {
+      min-height: 320px;
 
-  button {
-    margin: 20px 0px;
-    padding: 10px;
-    height: 40px;
-    width: 300px;
-    background-color: brown;
-    color: white;
-    padding-bottom: 20px;
-  };
-
-  select {
-    margin: 20px 0px;
-    width: 300px;
+      input {
+        width: 250px;
+        text-align: center;
+        height: 30px;
+        };
+  
+      select {
+        width: 250px;
+        text-align: center;
+        height: 35px;
+      }
+  
+      button {
+        width: 250px;
+        height: 35px;
+        margin-top: 10px;
+      };
+    }
+  `;
+  
+  export const ContainerReservation = styled.div`
+    align-self: flex-start;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    height: 40px;
-    margin-right: 10px;
-  }
+    text-transform: uppercase;
 
-  button:hover {
-    background-color: orange;
-  }
+    @media screen and (max-width: 600 px) {
+      h3 {
+        font-size: 0.8em;
+      }
+    }
+  `;
 
-  a {
-    color: brown;
-    font-weight: 600;
-  }
-`;
-
-export const Teste = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-`;
-
-
+  

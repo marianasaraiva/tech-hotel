@@ -41,7 +41,7 @@ export const ContainerForm = styled.div`
     text-align: center;
     margin-bottom: 40px;
     height: 20px;
-    };
+  };
 
   button {
     width: 100%;
@@ -55,19 +55,32 @@ export const ContainerForm = styled.div`
     background-color: orange;
   }
   
-  @media screen and (max-width: 800px) {
-    width: 80vh;
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+
+    form {
+      padding: 50px 0px;
+    }
   }
   
+  a:nth-child(4) {
+    color: brown;
+  }
+
   @media screen and (max-width: 400px) {
     width: 90vh;
 
     form {
-      padding: 60px 0px;
+      padding: 30px 0px;
+    }
+
+    h1 {
+      padding-bottom: 30px;
     }
 
     input {
       width: 90%;
+      margin-bottom: 20px;
     }
 
     button {
@@ -78,11 +91,8 @@ export const ContainerForm = styled.div`
   
 export const ContainerImage = styled.div`
   width: 50%;
-  @media screen and (max-width: 800px) {
+  
+  @media screen and (max-width: 1000px) {
     display: none;
   }
 `;
-  
-  // a:nth-child(4) {
-  //   color: brown;
-  // }

@@ -11,24 +11,18 @@ function TableReservation() {
       <Table>
           <thead>
             <tr>
-              <th>Nome completo</th>
-              <th>E-mail</th>
               <th>Quarto</th>
               <th>Check-in</th>
               <th>Check-out</th>
-              <th>Estadia</th>
               <th>Preço total da reserva</th>
             </tr>
           </thead>
           <tbody>
             { doneReservation.map((e, i) => (
               <tr key={ i }>
-                <td>{ e.client.fullName }</td>
-                <td>{ e.client.email }</td>
                 <td>{ e.rooms[0].type }</td>
-                <td>{ e.checkIn }</td>
-                <td>{ e.checkOut }</td>
-                <td>{ `${e.quantityDays} dias` }</td>
+                <td>{ (e.checkIn).slice(0, 10) }</td>
+                <td>{ (e.checkOut).slice(0, 10) }</td>
                 <td>{ `R$ ${e.totalPrice},00` }</td>
               </tr>
             )) }

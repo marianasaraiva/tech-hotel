@@ -14,15 +14,11 @@ export const NavBar = styled.header`
     font-weight: 600;
   }
 
+  a {
+    color: brown;
+  }
+  
   a:hover {
-    color: brown;
-  }
-
-  a:nth-child(1) {
-    color: brown;
-  }
-
-  a:nth-child(1):hover {
     color: orange;
   }
 

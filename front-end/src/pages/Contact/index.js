@@ -55,37 +55,37 @@ function Contact() {
         <ContainerDiv>
           <h3>Formulário de mensagens online</h3>
           <ContainerForm>
-          <input
-              id="fullName"
-              type="text"
-              placeholder="Nome Completo"
-              value={ fullName }
-              onChange={ ({ target }) => setFullName(target.value) }
-            />
-
             <input
-              id="email"
-              type="text"
-              placeholder="E-mail"
-              value={ email }
-              onChange={ ({ target }) => setEmail(target.value) }
-            />
+                id="fullName"
+                type="text"
+                placeholder="Nome Completo"
+                value={ fullName }
+                onChange={ ({ target }) => setFullName(target.value) }
+              />
 
-            <textarea
-              id="message"
-              type="text"
-              placeholder="Mensagem"
-              value={ message }
-              onChange={ ({ target }) => setMessage(target.value) }
-            />
+              <input
+                id="email"
+                type="text"
+                placeholder="E-mail"
+                value={ email }
+                onChange={ ({ target }) => setEmail(target.value) }
+              />
 
-            <button
-              type="button"
-              onClick={ sendForm }
-              disabled={ disabled }
-            >
-              Enviar
-            </button>
+              <textarea
+                id="message"
+                type="text"
+                placeholder="Mensagem"
+                value={ message }
+                onChange={ ({ target }) => setMessage(target.value) }
+              />
+
+              <button
+                type="button"
+                onClick={ sendForm }
+                disabled={ disabled }
+              >
+                Enviar
+              </button>
           </ContainerForm>
         </ContainerDiv>
       </ContainerSection>

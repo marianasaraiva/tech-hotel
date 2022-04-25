@@ -4,7 +4,7 @@ import fetchAPI from '../../services/fetchApi';
 import Context from '../../context/Context';
 import { validateData, validateFields } from '../../utils/reservationValidate';
 import TableReservation from '../../components/TableReservation';
-import { ContainerMain, ContainerForm, Teste } from './styles';
+import { ContainerTitle, ContainerForm, ContainerMain, ContainerPage, ContainerReservation } from './styles';
 import Header from '../../components/Header';
 
 function Reservation() {
@@ -99,6 +99,7 @@ function Reservation() {
     const saveReservation = await fetchAPI(method, url, data, headers);
 
     setCheckIn('');
+    setCheckOut('');
     setQuantityDays('');
     setPriceRooms('');
 
@@ -118,12 +119,14 @@ function Reservation() {
   };
 
   return (
-    <div>
+    <ContainerPage>
       <Header/>
-      <ContainerMain>
+      
+      <ContainerTitle>
         <h1>Reservation</h1>
-      </ContainerMain>
-      <Teste>
+      </ContainerTitle>
+
+      <ContainerMain>
         <ContainerForm>
           <label htmlFor="checkIn">
             Check-in
@@ -207,13 +210,14 @@ function Reservation() {
         </ContainerForm>
         {
           doneReservation.length !== 0 &&
-          <div>
+          <ContainerReservation>
             <h3>Reserva(s) concluída(s) com sucesso!</h3>
+            <h4>{`${doneReservation[0].client.fullName}` }</h4>
             <TableReservation />
-          </div>
+          </ContainerReservation>
         }
-      </Teste>
-    </div>
+      </ContainerMain>
+    </ContainerPage>
   )
 };
 

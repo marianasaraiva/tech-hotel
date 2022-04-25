@@ -33,6 +33,14 @@ export const ContainerMain = styled.main`
     text-transform: uppercase;
     margin-bottom: 0px;
   }
+
+  @media screen and (max-width: 550px) {
+    text-align: center;
+
+    h1 {
+      font-size: 1.4em;
+    }
+  }
 `;
 
 export const ContainerSection = styled.section`
@@ -46,6 +54,11 @@ export const ContainerSection = styled.section`
   h1 {
     text-transform: uppercase;
   }
+
+  @media screen and (max-width: 850px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const ContainerDiv = styled.div`
@@ -54,7 +67,7 @@ export const ContainerDiv = styled.div`
   justify-content: space-evenly;
   align-items: left;
   width: 50%;
-  padding: 0px 60px;
+  padding: 0px 40px;
   padding-top: 20px;
 
   h3 {
@@ -65,6 +78,22 @@ export const ContainerDiv = styled.div`
   p {
     text-align: justify;
   }
+
+  @media screen and (max-width: 850px) {
+    align-items: center;
+    width: 70%;
+    padding: 0px;
+
+    h3 {
+      text-align: center;
+      font-size: 0.9em;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 90%;
+    padding-top: 0px;
+  }
 `;
 
 export const ContainerForm = styled.form`
@@ -72,7 +101,7 @@ export const ContainerForm = styled.form`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  width: 90%;
+  width: 100%;
   font-family: 'Montserrat', sans-serif;
 
   input {
