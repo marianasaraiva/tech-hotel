@@ -26,7 +26,7 @@ function TableReservation() {
               <td>{ (e.checkIn).slice(0, 10) }</td>
               <td>{ (e.checkOut).slice(0, 10) }</td>
               <td>{ `R$ ${e.totalPrice},00` }</td>
-              <td><DeleteButton id={e.id} /></td>
+              <td><DeleteButton id={e.id} clientId={ e.clientId } /></td>
             </tr>
           )) }
         </tbody>
