@@ -18,6 +18,8 @@ import {
   ContainerReservation
 } from './styles';
 
+import { getApiReservationById } from '../../services/getApiReservationById';
+
 function Reservation() {
   const [checkIn, setCheckIn] = useState('');
   const [quantityDays, setQuantityDays] = useState('');
@@ -32,7 +34,7 @@ function Reservation() {
   const { id } = useParams();
 
   useEffect(() => {
-    getApiReservationById();
+    getApiReservationById(id, token, doneReservation, setDoneReservation);
     getApiRooms();
   }, []);
 
@@ -48,16 +50,6 @@ function Reservation() {
     const response = await fetchAPI(method.GET, url.ROOM);
 
     setRooms(response.data);
-  };
-
-  const getApiReservationById = async () => {
-    const response = await fetchAPI(method.GET, url.RESERVATION, null, headers(token));
-
-    const reservationsByClient = response.data.filter(e => (
-      e.clientId === +id
-    ));
-
-    setDoneReservation([...reservationsByClient]);
   };
 
   const getReservationClient = async (id) => {
