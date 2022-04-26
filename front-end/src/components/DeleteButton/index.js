@@ -3,6 +3,7 @@ import Context from '../../context/Context';
 import fetchAPI from '../../services/fetchApi';
 import { getApiReservationById } from '../../services/getApiReservationById';
 import { url, method, headers } from '../../utils/constants';
+import { CancelButton } from './styles';
 
 function DeleteButton({ id, clientId }) {
   const { token, setDoneReservation } = useContext(Context);
@@ -14,12 +15,12 @@ function DeleteButton({ id, clientId }) {
   }
 
   return (
-    <button
+    <CancelButton
       type="button"
       onClick={ deleteReservation }
     >
-      Excluir
-    </button>
+      Cancelar
+    </CancelButton>
   )
 }
 

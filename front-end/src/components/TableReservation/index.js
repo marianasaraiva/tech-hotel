@@ -16,7 +16,7 @@ function TableReservation() {
             <th>Check-in</th>
             <th>Check-out</th>
             <th>Preço total da reserva</th>
-            <th>Excluir</th>
+            <th>Cancelar</th>
           </tr>
         </thead>
         <tbody>
