@@ -5,12 +5,12 @@ import { getApiReservationById } from '../../services/getApiReservationById';
 import { url, method, headers } from '../../utils/constants';
 
 function DeleteButton({ id, clientId }) {
-  const { token, doneReservation, setDoneReservation } = useContext(Context);
+  const { token, setDoneReservation } = useContext(Context);
 
   const deleteReservation = async () => {
     await fetchAPI(method.DELETE, `${url.RESERVATION}/${id}`, null, headers(token));
 
-    getApiReservationById(clientId, token, doneReservation, setDoneReservation);
+    getApiReservationById(clientId, token, setDoneReservation);
   }
 
   return (

@@ -31,10 +31,10 @@ function Reservation() {
 
   const { doneReservation, setDoneReservation } = useContext(Context);
   const { token } = useContext(Context);
-  const { id } = useParams();
+  const { id: clientId } = useParams();
 
   useEffect(() => {
-    getApiReservationById(id, token, doneReservation, setDoneReservation);
+    getApiReservationById(clientId, token, setDoneReservation);
     getApiRooms();
   }, []);
 
@@ -52,8 +52,9 @@ function Reservation() {
     setRooms(response.data);
   };
 
-  const getReservationClient = async (id) => {
-    const getReservation = await fetchAPI(method.GET,`${url.RESERVATION}/${id}`, null, headers(token));
+  const getReservationClient = async (reservationId) => {
+    const getReservation = await
+      fetchAPI(method.GET,`${url.RESERVATION}/${reservationId}`, null, headers(token));
 
     setDoneReservation([...doneReservation, getReservation.data]);
   };
