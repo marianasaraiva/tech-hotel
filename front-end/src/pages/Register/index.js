@@ -52,7 +52,7 @@ function Register() {
     <ContainerMain>
       <ContainerForm>
         <Header/>
-        <form>        
+        <form>
           <h1>Register</h1>
           <input
             id="fullName"

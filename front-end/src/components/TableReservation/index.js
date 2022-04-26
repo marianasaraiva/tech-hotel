@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Context from '../../context/Context';
+import DeleteButton from '../DeleteButton';
 import { Table } from './styles';
 
 
@@ -15,6 +16,7 @@ function TableReservation() {
             <th>Check-in</th>
             <th>Check-out</th>
             <th>Preço total da reserva</th>
+            <th>Cancelar</th>
           </tr>
         </thead>
         <tbody>
@@ -24,6 +26,7 @@ function TableReservation() {
               <td>{ (e.checkIn).slice(0, 10) }</td>
               <td>{ (e.checkOut).slice(0, 10) }</td>
               <td>{ `R$ ${e.totalPrice},00` }</td>
+              <td><DeleteButton id={e.id} clientId={ e.clientId } /></td>
             </tr>
           )) }
         </tbody>
