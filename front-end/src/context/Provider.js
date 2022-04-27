@@ -6,12 +6,15 @@ import useLocalStorage from '../hooks/useLocalStorage';
 function Provider({children}) {
   const [token, setToken] = useLocalStorage('token', '');
   const [doneReservation, setDoneReservation] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
   const context = {
     token,
     setToken,
     doneReservation,
     setDoneReservation,
+    rooms,
+    setRooms,
   };
 
   return (
