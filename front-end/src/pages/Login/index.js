@@ -17,7 +17,7 @@ import Picture from '../../images/amsterda.jpg';
 import Alert from '../../components/Alert';
 
 function Login() {
-  const { setToken, alert, setAlert } = useContext(Context);
+  const { setToken } = useContext(Context);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,7 +43,6 @@ function Login() {
     
     if(response.err) {
       setError(response.data);
-      setAlert(true);
       return; 
     }
 
@@ -61,7 +60,7 @@ function Login() {
         <Header/>
         <form>
           { 
-           alert && <Alert message={error} />
+           error && <Alert message={ error } setError={ setError }/>
           }
           <h1>Login</h1>
           <input

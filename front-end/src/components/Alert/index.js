@@ -1,14 +1,12 @@
-import React, { useContext } from 'react';
-import Context from '../../context/Context';
+import React from 'react';
 
-function Alert(message) {
-  const { setAlert } = useContext(Context);
+function Alert({ message, setError }) {
   return (
     <div>
       <h3>{ message }</h3> 
       <button
         type="button"
-        onClick={ setAlert(false) }
+        onClick={ () => setError('') }
       >
         OK
       </button>
