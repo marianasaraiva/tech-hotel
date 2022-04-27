@@ -22,7 +22,6 @@ import { getApiReservationById } from '../../services/getApiReservationById';
 import { getReservationClient } from '../../services/getReservationClient';
 import { getApiRooms } from '../../services/getApiRooms';
 import { roomFilter } from '../../utils/roomFilter';
-// import { removeDuplicate } from '../../services/teste';
 
 function Reservation() {
   const [checkIn, setCheckIn] = useState('');
