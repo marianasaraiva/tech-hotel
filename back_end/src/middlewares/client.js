@@ -3,9 +3,11 @@ const Joi = require('joi');
 const clientSchema = Joi.object({
   fullName: Joi.string()
     .min(3)
+    .max(50)
     .required(),
   password: Joi.string()
     .min(6)
+    .max(30)
     .required(),
   cpf: Joi.string()
     .min(11)
