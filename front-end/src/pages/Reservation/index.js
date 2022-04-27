@@ -21,18 +21,21 @@ import {
 import { getApiReservationById } from '../../services/getApiReservationById';
 import { getReservationClient } from '../../services/getReservationClient';
 import { getApiRooms } from '../../services/getApiRooms';
+import { roomFilter } from '../../utils/roomFilter';
+// import { removeDuplicate } from '../../services/teste';
 
 function Reservation() {
   const [checkIn, setCheckIn] = useState('');
   const [quantityDays, setQuantityDays] = useState('');
   const [priceRooms, setPriceRooms] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const [rooms, setRooms] = useState([]);
   const [checkOut, setCheckOut] = useState('');
   const [selectRooms, setSelectRooms] = useState([]);
 
   const { doneReservation, setDoneReservation } = useContext(Context);
   const { token } = useContext(Context);
+  const { rooms, setRooms } = useContext(Context);
+
   const { id: clientId } = useParams();
 
   useEffect(() => {
@@ -44,37 +47,15 @@ function Reservation() {
   }, []);
 
   useEffect(() => {
-    roomFilter();
+    roomFilter(rooms, setSelectRooms);
   }, [rooms]);
 
   useEffect(() => {
     validateData(checkIn, checkOut, quantityDays, priceRooms, setDisabled);
   }, [checkIn, checkOut, quantityDays, priceRooms]);
 
-  const roomFilter = () => {
-    const roomLux = rooms.filter((e) => e.type === 'Suíte Luxo')
-      .find((e) => e.reservations.length === 0);
-
-    const roomExecutive = rooms.filter((e) => e.type === 'Suíte Executiva')
-      .find((e) => e.reservations.length === 0);
-
-    const roomStandard = rooms.filter((e) => e.type === 'Quarto Standard')
-      .find((e) => e.reservations.length === 0);
-
-    const array = [];
-
-    if (roomLux) array.push(roomLux);
-
-    if (roomExecutive) array.push(roomExecutive);
-        
-    if (roomStandard) array.push(roomStandard);
-
-    setSelectRooms(array);
-    };
-
   const saveReservation = async () => {
     const roomId = rooms.find(r => r.price.includes(priceRooms) && r.reservations.length === 0).id;
-
     const data = {
       checkIn,
       checkOut,
@@ -84,7 +65,6 @@ function Reservation() {
     };
 
     const response = await fetchAPI(method.POST, url.RESERVATION, data, headers(token));
-
     return response.data.id;
   }
 
@@ -93,14 +73,14 @@ function Reservation() {
     if (validateTrue) return;
 
     const reservationId = await saveReservation();
-    console.log(reservationId);
 
     setCheckIn('');
     setCheckOut('');
     setQuantityDays('');
     setPriceRooms('');
 
-    getApiRooms();
+    const response = await getApiRooms();
+    setRooms(response);
     getReservationClient(reservationId, token, doneReservation, setDoneReservation);
   }
 
