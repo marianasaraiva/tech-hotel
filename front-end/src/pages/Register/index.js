@@ -38,7 +38,12 @@ function Register() {
       password,
     };
 
-    await fetchAPI(method.POST, url.CLIENT, data);
+    const response = await fetchAPI(method.POST, url.CLIENT, data);
+
+    if(response.err) {
+      alert(response.data);
+      return; 
+    }
 
     setFullName('');
     setCpf('');

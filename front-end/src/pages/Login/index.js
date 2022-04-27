@@ -39,7 +39,10 @@ function Login() {
 
     const response = await fetchAPI(method.POST, url.LOGIN, data);
     
-    if(response.err) return 
+    if(response.err) {
+      alert(response.data);
+      return; 
+    }
 
     setEmail('');
     setPassword('');
