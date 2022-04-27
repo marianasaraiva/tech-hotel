@@ -30,6 +30,7 @@ function Reservation() {
   const [disabled, setDisabled] = useState(true);
   const [checkOut, setCheckOut] = useState('');
   const [selectRooms, setSelectRooms] = useState([]);
+  const [disabledCheckOut, setDisabledCheckOut] = useState(true);
 
   const { doneReservation, setDoneReservation } = useContext(Context);
   const { token } = useContext(Context);
@@ -64,6 +65,11 @@ function Reservation() {
     };
 
     const response = await fetchAPI(method.POST, url.RESERVATION, data, headers(token));
+    console.log(response);
+    if(response.err) {
+      alert(response.data);
+      return; 
+    }
     return response.data.id;
   }
 
@@ -103,7 +109,10 @@ function Reservation() {
               placeholder="Check-in: aaaa/mm/dd"
               required
               value={ checkIn }
-              onChange={ ({ target }) => setCheckIn(target.value) }
+              onChange={ ({ target }) => {
+                setCheckIn(target.value); 
+                setDisabledCheckOut(false); 
+              } }
             />
           </label>
 
@@ -116,6 +125,7 @@ function Reservation() {
               max={ dateCalendary(false) }
               placeholder="Check-out: aaaa/mm/dd"
               required
+              disabled={ disabledCheckOut }
               value={ checkOut }
               onChange={ ({ target }) => {
                 setCheckOut(target.value);
@@ -163,7 +173,10 @@ function Reservation() {
 
           <button
             type="button"
-            onClick={ sendForm }
+            onClick={ () => { 
+              sendForm();
+              setDisabledCheckOut(true); 
+            } }
             disabled={ disabled }
           >
             Enviar
