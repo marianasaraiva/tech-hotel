@@ -32,7 +32,7 @@ function Register() {
   }, [fullName, cpf, email, password]);
 
   const sendForm = async () => {
-    const validateTrue = validateFields(fullName, cpf, email, password);
+    const validateTrue = validateFields(fullName, cpf, email, password, setError);
     if (validateTrue) return;
 
     const data = {

@@ -6,7 +6,7 @@ export const ContainerError = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(128,128,128,0.5); 
+  background-color: rgba(0,0,0,0.5); 
 
   div {
     position: fixed; 
@@ -14,7 +14,7 @@ export const ContainerError = styled.div`
     left: 50vw;
     transform: translate(-50%,-50%);
     height: 300px;
-    width: 600px;
+    width: 500px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,7 @@ export const ContainerError = styled.div`
   }
 
   button {
-    width: 250px;
+    width: 200px;
   }
 
   @media screen and (max-width: 400px) {
