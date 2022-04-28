@@ -5,11 +5,11 @@ const createClientController = async (req, res, next) => {
     const { fullName, cpf, password, email } = req.body;
 
     const result = await clientService.create({ fullName, cpf, password, email, active: true });
-
-    if (result === 'E-mail already exists') return res
+    
+    if (result === 'CPF already exists') return res
       .status(409).json({ message: result });
 
-    if (result === 'CPF already exists') return res
+    if (result === 'E-mail already exists') return res
       .status(409).json({ message: result });
 
     return res.status(201).json(result);

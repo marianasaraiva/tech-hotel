@@ -22,6 +22,7 @@ import { getApiReservationById } from '../../services/getApiReservationById';
 import { getReservationClient } from '../../services/getReservationClient';
 import { getApiRooms } from '../../services/getApiRooms';
 import { roomFilter } from '../../utils/roomFilter';
+import Alert from '../../components/Alert';
 
 function Reservation() {
   const [checkIn, setCheckIn] = useState('');
@@ -30,10 +31,17 @@ function Reservation() {
   const [disabled, setDisabled] = useState(true);
   const [checkOut, setCheckOut] = useState('');
   const [selectRooms, setSelectRooms] = useState([]);
+  const [disabledCheckOut, setDisabledCheckOut] = useState(true);
 
-  const { doneReservation, setDoneReservation } = useContext(Context);
-  const { token } = useContext(Context);
-  const { rooms, setRooms } = useContext(Context);
+  const {
+    token,
+    rooms,
+    setRooms,
+    doneReservation,
+    setDoneReservation,
+    error,
+    setError
+  } = useContext(Context);
 
   const { id: clientId } = useParams();
 
@@ -64,6 +72,11 @@ function Reservation() {
     };
 
     const response = await fetchAPI(method.POST, url.RESERVATION, data, headers(token));
+    console.log(response);
+    if(response.err) {
+      setError(response.data);
+      return; 
+    }
     return response.data.id;
   }
 
@@ -86,13 +99,14 @@ function Reservation() {
   return (
     <ContainerPage>
       <Header/>
-      
+
       <ContainerTitle>
         <h1>Reservation</h1>
       </ContainerTitle>
 
       <ContainerMain>
         <ContainerForm>
+          { error && <Alert /> }
           <label htmlFor="checkIn">
             Check-in
             <input
@@ -103,7 +117,10 @@ function Reservation() {
               placeholder="Check-in: aaaa/mm/dd"
               required
               value={ checkIn }
-              onChange={ ({ target }) => setCheckIn(target.value) }
+              onChange={ ({ target }) => {
+                setCheckIn(target.value); 
+                setDisabledCheckOut(false); 
+              } }
             />
           </label>
 
@@ -116,12 +133,13 @@ function Reservation() {
               max={ dateCalendary(false) }
               placeholder="Check-out: aaaa/mm/dd"
               required
+              disabled={ disabledCheckOut }
               value={ checkOut }
               onChange={ ({ target }) => {
                 setCheckOut(target.value);
                 diffDates(checkIn, target.value, setQuantityDays);
               } }
-            />
+              />
           </label>
 
           <label htmlFor="quantityDays">
@@ -133,7 +151,7 @@ function Reservation() {
               required
               value={ quantityDays }
               readOnly
-            />
+              />
           </label>
 
           <label htmlFor="select">
@@ -143,16 +161,16 @@ function Reservation() {
               value={priceRooms}
               required
               onChange={ ({ target }) => setPriceRooms(target.value) }
-            >
+              >
             {
               !priceRooms &&
-                <option value="">Selecione</option>
+              <option value="">Selecione</option>
             }
             { 
               selectRooms && selectRooms.map((e) => (
                 <option
-                  value={e.price}
-                  key={e.id}
+                value={e.price}
+                key={e.id}
                 >
                   {`${e.type} - ${e.price}`}
                 </option>
@@ -163,12 +181,16 @@ function Reservation() {
 
           <button
             type="button"
-            onClick={ sendForm }
+            onClick={ () => { 
+              sendForm();
+              setDisabledCheckOut(true); 
+            } }
             disabled={ disabled }
-          >
+            >
             Enviar
           </button>
         </ContainerForm>
+
         {
           doneReservation.length !== 0 &&
           <ContainerReservation>
@@ -178,6 +200,7 @@ function Reservation() {
           </ContainerReservation>
         }
       </ContainerMain>
+
     </ContainerPage>
   )
 };

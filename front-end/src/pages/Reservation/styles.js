@@ -13,7 +13,7 @@ export const ContainerMain = styled.main`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  padding: 1em;;
+  padding: 1em 0em;
   width: 100%;
 
   @media screen and (max-width: 1100px) {
@@ -116,6 +116,28 @@ export const ContainerTitle = styled.section`
         width: 250px;
         height: 35px;
         margin-top: 10px;
+      }
+    }
+
+    @media screen and (max-width: 900px) {
+      min-height: 200px;
+
+      input {
+        width: 150px;
+        text-align: center;
+        height: 20px;
+        };
+  
+      select {
+        width: 150px;
+        text-align: center;
+        height: 25px;
+      }
+  
+      button {
+        width: 150px;
+        height: 25px;
+        margin-top: 10px;
       };
     }
   `;
@@ -126,8 +148,12 @@ export const ContainerTitle = styled.section`
     justify-content: center;
     text-align: center;
     text-transform: uppercase;
+    width:70%;
 
-    @media screen and (max-width: 600 px) {
+
+    @media screen and (max-width: 600px) {
+      width: 100vw;
+      margin: 10% 0%;
       h3 {
         font-size: 0.8em;
       }

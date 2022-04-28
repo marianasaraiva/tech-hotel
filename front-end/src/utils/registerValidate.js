@@ -5,8 +5,16 @@ export const validateData = (fullName, cpf, email, password, setDisabled) => {
 };
 
 export const validateFields = (fullName, cpf, email, password,) => {
-  if (fullName.length < 3 && typeof fullName !== "number") {
-    alert("Nome precisa ter no mínimo 3 caracteres e não conter números");
+  const validatefullName = fullName
+    .match(/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\s]+$/); 
+
+  if(!validatefullName) {
+    alert("Nome deve conter apenas letras, sem caracteres especiais");
+    return true;
+  }
+
+  if (fullName.length < 3 || fullName.length > 50) {
+    alert("Nome precisa ter no mínimo 3 caracteres e no máximo 50");
     return true;
   }
 
@@ -22,8 +30,8 @@ export const validateFields = (fullName, cpf, email, password,) => {
     return true;
   }
 
-  if (password.length < 6) {
-    alert("Password precisa ter no mínimo 6 caracteres");
+  if (password.length < 6 || password.length > 30) {
+    alert("Password precisa ter no mínimo 6 caracteres e no máximo 30");
     return true;
   }
 

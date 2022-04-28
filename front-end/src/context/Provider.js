@@ -7,6 +7,7 @@ function Provider({children}) {
   const [token, setToken] = useLocalStorage('token', '');
   const [doneReservation, setDoneReservation] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [error, setError] = useState(false);
 
   const context = {
     token,
@@ -15,6 +16,8 @@ function Provider({children}) {
     setDoneReservation,
     rooms,
     setRooms,
+    error,
+    setError,
   };
 
   return (

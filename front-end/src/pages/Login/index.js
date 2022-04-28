@@ -14,9 +14,10 @@ import {
   ContainerImage
 } from './styles';
 import Picture from '../../images/amsterda.jpg';
+import Alert from '../../components/Alert';
 
 function Login() {
-  const { setToken } = useContext(Context);
+  const { setToken, error, setError } = useContext(Context);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,7 +40,10 @@ function Login() {
 
     const response = await fetchAPI(method.POST, url.LOGIN, data);
     
-    if(response.err) return 
+    if(response.err) {
+      setError(response.data);
+      return; 
+    }
 
     setEmail('');
     setPassword('');
@@ -54,6 +58,9 @@ function Login() {
       <ContainerForm>
         <Header/>
         <form>
+          { 
+           error && <Alert />
+          }
           <h1>Login</h1>
           <input
             id="email"

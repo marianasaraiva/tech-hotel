@@ -8,7 +8,6 @@ export const Table = styled.table`
   border-collapse: collapse;
   text-align: center;
   border: 1px solid black;  
-  height: 15em;
   
   thead {
     background-color: brown;
@@ -16,7 +15,6 @@ export const Table = styled.table`
     height: 4em;
     font-weight: 600;
   } 
-  
   
   td {
     font-size: 1.0em;
@@ -60,9 +58,30 @@ export const Table = styled.table`
       padding: 0.8em; 
       font-size: 1em;
     }
+
+    button {
+      padding: 0;
+      height: 2em;
+      width: 100px;
+    }
   }
 
-  @media screen and (max-width: 500 px) {
+  @media screen and (max-width: 500px) {
+    td {
+      padding: 0.6em; 
+      font-size: 0.8em;
+    }
+    
+    th {
+      padding: 0.6em; 
+      font-size: 0.8em;
+    }
 
+    button {
+      font-size:0.8em;
+      padding: 0;
+      height: 2em;
+      width: 50px;
+    }
   }
 `;

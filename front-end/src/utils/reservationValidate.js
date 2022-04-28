@@ -14,5 +14,5 @@ export const validateFields = (checkIn, checkOut) => {
     return true;
   }
 
-  return null
+  return null;
 };
