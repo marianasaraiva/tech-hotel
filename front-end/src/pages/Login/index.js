@@ -17,12 +17,11 @@ import Picture from '../../images/amsterda.jpg';
 import Alert from '../../components/Alert';
 
 function Login() {
-  const { setToken } = useContext(Context);
+  const { setToken, error, setError } = useContext(Context);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -60,7 +59,7 @@ function Login() {
         <Header/>
         <form>
           { 
-           error && <Alert message={ error } setError={ setError }/>
+           error && <Alert />
           }
           <h1>Login</h1>
           <input

@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import Context from '../../context/Context';
+import { ContainerError } from './style';
 
-function Alert({ message, setError }) {
+function Alert() {
+  const { error, setError } = useContext(Context);
+
   return (
-    <div>
-      <h3>{ message }</h3> 
+    <ContainerError>
+      <h3>{ error }</h3> 
       <button
         type="button"
         onClick={ () => setError('') }
       >
         OK
       </button>
-    </div>
+    </ContainerError>
   )
 }
 

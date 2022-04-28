@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../../components/Header';
@@ -13,6 +13,8 @@ import {
   ContainerImage
 } from './styles';
 import Pictures from '../../images/amsterdam.jpg';
+import Context from '../../context/Context';
+import Alert from '../../components/Alert';
 
 function Register() {
   const [fullName, setFullName] = useState('');
@@ -20,6 +22,8 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
+
+  const { error, setError } = useContext(Context);
 
   const navigate = useNavigate();
 
@@ -41,7 +45,7 @@ function Register() {
     const response = await fetchAPI(method.POST, url.CLIENT, data);
 
     if(response.err) {
-      alert(response.data);
+      setError(response.data);
       return; 
     }
 
@@ -58,6 +62,9 @@ function Register() {
       <ContainerForm>
         <Header/>
         <form>
+          { 
+           error && <Alert />
+          }
           <h1>Register</h1>
           <input
             id="fullName"
