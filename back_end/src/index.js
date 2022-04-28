@@ -15,4 +15,4 @@ app.use(routes);
 
 app.use(error);
 
-app.listen(process.env.PORT || 3001, () => console.log('ouvindo porta 3001!'));
+app.listen(process.env.SERVER_PORT || 3001, () => console.log('ouvindo porta 3001!'));

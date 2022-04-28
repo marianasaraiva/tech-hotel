@@ -1,0 +1,50 @@
+version: '3.1'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: container_mysql
+    env_file:
+      - ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
+    ports:
+      - $DB_PORT:3306
+
+  back-end:
+    image: node:latest
+    container_name: container_back-end
+    restart: always
+    depends_on:
+      - mysql
+    env_file:
+      - ./.env
+    ports:
+      - $SERVER_PORT:$SERVER_PORT
+    environment:
+      - DB_HOST=$DB_HOST
+      - DB_NAME=$DB_NAME
+      - DB_USER=$DB_USER
+      - DB_PASSWORD=$DB_PASSWORD
+      - SERVER_PORT=$SERVER_PORT
+    working_dir: /usr/app
+    volumes:
+      - ./back-end:/usr/app
+    command: bash -c "npm install && npx sequelize db:create && npx sequelize db:migrate && npm start"
+
+  front-end:
+    image: node:latest
+    container_name: container_front-end
+    restart: always
+    depends_on:
+      - back-end
+    env_file:
+      - ./.env
+    ports:
+      - $CLIENT_PORT:$CLIENT_PORT
+    environment:
+      - REACT_APP_BACK_PORT=$SERVER_PORT
+      - REACT_APP_BACK_HOST=$SERVER_HOST
+    working_dir: /usr/app
+    volumes:
+      - ./front-end:/usr/app
+    command: bash -c "npm install && npm start"
