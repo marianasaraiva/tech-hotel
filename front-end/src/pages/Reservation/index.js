@@ -106,6 +106,7 @@ function Reservation() {
 
       <ContainerMain>
         <ContainerForm>
+          { error && <Alert /> }
           <label htmlFor="checkIn">
             Check-in
             <input
@@ -189,6 +190,7 @@ function Reservation() {
             Enviar
           </button>
         </ContainerForm>
+
         {
           doneReservation.length !== 0 &&
           <ContainerReservation>
@@ -198,9 +200,7 @@ function Reservation() {
           </ContainerReservation>
         }
       </ContainerMain>
-      {
-        error && <Alert />
-      }
+
     </ContainerPage>
   )
 };
