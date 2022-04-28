@@ -7,13 +7,15 @@ function Alert() {
 
   return (
     <ContainerError>
-      <h3>{ error }</h3> 
-      <button
-        type="button"
-        onClick={ () => setError('') }
-      >
-        OK
-      </button>
+      <div>
+        <h3>{ error }</h3> 
+        <button
+          type="button"
+          onClick={ () => setError('') }
+        >
+          OK
+        </button>
+      </div>
     </ContainerError>
   )
 }

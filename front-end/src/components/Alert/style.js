@@ -1,31 +1,43 @@
 import styled from 'styled-components';
 
 export const ContainerError = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(128,128,128,0.5); 
 
-  margin-bottom: 10%;
-  background: rgba(0, 0, 0, 0.7);
-  box-shadow: 8px 8px 5px #c3c3c3;
-
-  color: white;
-  padding: 5%;
-  border: 1px solid gray;
-  border-radius: 3px;
-
-  h3 {
-    font-weight: 600;
+  div {
+    position: fixed; 
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%,-50%);
+    height: 300px;
+    width: 600px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   button {
-    font-weight: 600;
-    width: 30%;
+    width: 250px;
   }
 
   @media screen and (max-width: 400px) {
-    padding: 1%;
-    margin-bottom: 5%;
+    font-size: 0.8em;
+
+    div {
+      height: 200px;
+      width: 200px;
+    }
+
+    button {
+      padding: 0;
+      height: 2em;
+      width: 100px;
+    }
   }
 `;
