@@ -30,7 +30,7 @@ function Login() {
   }, [email, password]);
 
   const sendForm = async () => {
-    const validateTrue = validateFields(email, password);
+    const validateTrue = validateFields(email, password, setError);
     if (validateTrue) return;
 
     const data = {
