@@ -8,7 +8,7 @@ const loginController = async (req, res, next) => {
 
     if (!response) return res.status(400).json({ message: 'Invalid fields' });
 
-    return res.status(201).json(response);
+    return res.status(200).json(response);
   } catch (error) {
     next(error);
   }
