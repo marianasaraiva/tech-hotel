@@ -1,3 +1,6 @@
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/config/config.js')[env];
+
 const express = require('express');
 const cors = require('cors');
 
@@ -15,4 +18,4 @@ app.use(routes);
 
 app.use(error);
 
-app.listen(process.env.SERVER_PORT || 3001, () => console.log('ouvindo porta 3001!'));
+app.listen(config.serverport || 3001, () => console.log('ouvindo porta 3001!'));
