@@ -32,7 +32,7 @@ services:
     command: bash -c "npm install && npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all && npm start"
 
   front-end:
-    image: node:16.15.0
+    image: node:latest
     container_name: container_front-end_tech
     restart: always
     depends_on:
@@ -41,8 +41,6 @@ services:
       - ./.env
     ports:
       - $CLIENT_PORT:$CLIENT_PORT
-      - "19000:19000"
-      - "19002:19002"
     environment:
       - REACT_APP_BACK_PORT=$SERVER_PORT
       - REACT_APP_BACK_HOST=back-end
