@@ -18,7 +18,7 @@ describe('Testando rotas de Client', () => {
 
     before(async () => {
       sinon.stub(Client, 'findAll')
-      .resolves(mockClients);
+        .resolves(mockClients);
 
       response = await chai
         .request(server)
