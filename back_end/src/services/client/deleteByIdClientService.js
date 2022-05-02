@@ -6,7 +6,7 @@ const deleteByIdClientService = async ({ id }) => {
   if (!clientExist) return null;
 
   const deleteClient = await Client.destroy({ where: { id }});
-  
+
   return deleteClient;
 };
 
