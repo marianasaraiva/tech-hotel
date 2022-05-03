@@ -12,13 +12,20 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
+const data = {
+  email: mockClients.list[0].email,
+  id: mockClients.list[0].id
+}
+
+const token = generationToken(data);
+
 describe('Testando rotas de Client', () => {
   describe('Quando há uma requisição GET para /client', () => {
     let response;
 
     before(async () => {
       sinon.stub(Client, 'findAll')
-        .resolves(mockClients);
+        .resolves(mockClients.list);
 
       response = await chai
         .request(server)
@@ -34,24 +41,17 @@ describe('Testando rotas de Client', () => {
     });
 
     it('A requisição GET para a rota traz uma lista inicial contendo todos os clientes', () => {
-        expect(response.body).to.deep.equal(mockClients);
+        expect(response.body).to.deep.equal(mockClients.list);
     });
   });
 
   describe('Quando há uma requisição POST para /client', () => {
     let response;
 
-    const newClient = {
-      "fullName": "Jonatas Passos",
-      "cpf": "12345678900",
-      "password": "123456",
-      "email": "jonatas@gmail.com"
-    }
-
     describe('Requisição retorna com sucesso', () => {
       before(async () => {
         sinon.stub(Client, 'create')
-          .resolves(mockClients[0]);
+          .resolves(mockClients.list[0]);
         sinon.stub(Client, 'findOne')
           .onCall(0)
           .resolves(null)
@@ -61,7 +61,7 @@ describe('Testando rotas de Client', () => {
         response = await chai
           .request(server)
           .post('/client')
-          .send(newClient);
+          .send(mockClients.newClient);
       });
   
       after(() => {
@@ -74,25 +74,25 @@ describe('Testando rotas de Client', () => {
       });
 
       it('A requisição POST para a rota traz um objeto contendo as propriedades do cliente cadastrado', () => {
-        expect(response.body).to.deep.equal(mockClients[0]);
+        expect(response.body).to.deep.equal(mockClients.list[0]);
       });
     });
 
     describe('Requisição retorna um erro por conta do E-mail', () => {
       before(async () => {
         sinon.stub(Client, 'create')
-          .resolves(mockClients[0]);
+          .resolves(mockClients.list[0]);
 
         sinon.stub(Client, 'findOne')
           .onCall(0)
-          .resolves(mockClients[0])
+          .resolves(mockClients.list[0])
           .onCall(1)
           .resolves(null);
   
         response = await chai
           .request(server)
           .post('/client')
-          .send(newClient);
+          .send(mockClients.newClient);
       });
   
       after(() => {
@@ -112,18 +112,18 @@ describe('Testando rotas de Client', () => {
     describe('Requisição retorna um erro por conta do CPF', () => {
       before(async () => {
         sinon.stub(Client, 'create')
-          .resolves(mockClients[0]);
+          .resolves(mockClients.list[0]);
 
         sinon.stub(Client, 'findOne')
           .onCall(0)
           .resolves(null)
           .onCall(1)
-          .resolves(mockClients[0])
+          .resolves(mockClients.list[0])
   
         response = await chai
           .request(server)
           .post('/client')
-          .send(newClient);
+          .send(mockClients.newClient);
       });
   
       after(() => {
@@ -144,22 +144,10 @@ describe('Testando rotas de Client', () => {
   describe('Quando há uma requisição GET para /client/:id', () => {
     let response;
 
-    const client = {
-      ...mockClients[0],
-      reservations: []
-    }
-
-    const data = {
-      emal: mockClients[0].email,
-      id: mockClients[0].id
-    }
-
-    const token = generationToken(data);
-
     describe('Requisição retorna com sucesso', () => {
       before(async () => {
         sinon.stub(Client, 'findByPk')
-          .resolves(client);
+          .resolves(mockClients.client);
   
         response = await chai
           .request(server)
@@ -176,7 +164,7 @@ describe('Testando rotas de Client', () => {
       });
 
       it('A requisição POST para a rota traz um objeto contendo as propriedades do cliente cadastrado', () => {
-        expect(response.body).to.deep.equal(client);
+        expect(response.body).to.deep.equal(mockClients.client);
       });
     });
 
@@ -241,32 +229,18 @@ describe('Testando rotas de Client', () => {
   describe('Quando há uma requisição PUT para /client/:id', () => {
     let response;
 
-    const client = {
-      fullName: 'Jonatas',
-      cpf: '12345678977',
-      email: 'jonatas@gmail.com',
-      password: '123456'
-    }
-
-    const data = {
-      emal: mockClients[0].email,
-      id: mockClients[0].id
-    }
-
-    const token = generationToken(data);
-
     describe('Requisição retorna com sucesso', () => {
       before(async () => {
         sinon.stub(Client, 'update')
           .resolves([1]);
         sinon.stub(Client, 'findByPk')
-          .resolves(mockClients[0]);
+          .resolves(mockClients.list[0]);
   
         response = await chai
           .request(server)
           .put('/client/1')
           .set('authorization', token)
-          .send(client);
+          .send(mockClients.newClient);
       });
   
       after(() => {
@@ -288,14 +262,14 @@ describe('Testando rotas de Client', () => {
         before(async () => {
           sinon.stub(Client, 'findByPk')
             .resolves(null);
-    
+
           response = await chai
             .request(server)
-            .put('/client/1')
+            .put('/client/8')
             .set('authorization', token)
-            .send(client);
+            .send(mockClients.newClient);
         });
-    
+
         after(() => {
           Client.findByPk.restore();
         });
@@ -312,7 +286,7 @@ describe('Testando rotas de Client', () => {
       describe('Quando não ocorre nenhuma atualização', () => {
         before(async () => {
           sinon.stub(Client, 'findByPk')
-            .resolves(mockClients[0]);
+            .resolves(mockClients.list[0]);
           sinon.stub(Client, 'update')
             .resolves([0]);
     
@@ -320,7 +294,7 @@ describe('Testando rotas de Client', () => {
             .request(server)
             .put('/client/1')
             .set('authorization', token)
-            .send(client);
+            .send(mockClients.newClient);
         });
     
         after(() => {
@@ -373,19 +347,12 @@ describe('Testando rotas de Client', () => {
   });
 
   describe('Quando há uma requisição DELETE para /client/:id', () => {
-    const data = {
-      emal: mockClients[0].email,
-      id: mockClients[0].id
-    }
-
-    const token = generationToken(data);
-
     describe('Requisição retorna com sucesso', () => {
       before(async () => {
         sinon.stub(Client, 'destroy')
           .resolves(1);
         sinon.stub(Client, 'findByPk')
-          .resolves(mockClients[0]);
+          .resolves(mockClients.list[0]);
   
         response = await chai
           .request(server)

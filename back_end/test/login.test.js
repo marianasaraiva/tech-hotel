@@ -16,14 +16,14 @@ describe('Testando rotas de Login', () => {
     let response;
 
     const login = {
-      "email": mockClients[0].email,
-      "password": mockClients[0].password
+      "email": mockClients.list[0].email,
+      "password": mockClients.list[0].password
     }
 
     describe('Requisição retorna com sucesso', () => {
       before(async () => {
         sinon.stub(Client, 'findOne')
-          .resolves(mockClients[0]);
+          .resolves(mockClients.list[0]);
 
         response = await chai
           .request(server)
@@ -40,7 +40,7 @@ describe('Testando rotas de Login', () => {
       });
 
       it('A requisição POST para a rota traz um objeto contendo o id do cliente e um token', () => {
-        expect(response.body).to.deep.equal({ id: mockClients[0].id, token: response.body.token });
+        expect(response.body).to.deep.equal({ id: mockClients.list[0].id, token: response.body.token });
       });
     });
 
