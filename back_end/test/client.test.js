@@ -231,10 +231,10 @@ describe('Testando rotas de Client', () => {
 
     describe('Requisição retorna com sucesso', () => {
       before(async () => {
-        sinon.stub(Client, 'update')
-          .resolves([1]);
         sinon.stub(Client, 'findByPk')
           .resolves(mockClients.list[0]);
+        sinon.stub(Client, 'update')
+          .resolves([1]);
   
         response = await chai
           .request(server)
@@ -244,8 +244,8 @@ describe('Testando rotas de Client', () => {
       });
   
       after(() => {
-        Client.update.restore();
         Client.findByPk.restore();
+        Client.update.restore();
       });
 
       it('Requisição deve retornar código de status 200', () => {
