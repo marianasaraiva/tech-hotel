@@ -29,7 +29,7 @@ services:
     working_dir: /usr/app
     volumes:
       - ./back_end:/usr/app
-    command: bash -c "npm install && npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all && npm start"
+    command: bash -c "npm install && npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all && npm run dev"
 
   front-end:
     image: node:latest
