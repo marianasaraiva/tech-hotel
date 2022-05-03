@@ -53,6 +53,9 @@ describe('Testando rotas de Client', () => {
         sinon.stub(Client, 'create')
           .resolves(mockClients[0]);
         sinon.stub(Client, 'findOne')
+          .onCall(0)
+          .resolves(null)
+          .onCall(1)
           .resolves(null);
   
         response = await chai
@@ -75,12 +78,16 @@ describe('Testando rotas de Client', () => {
       });
     });
 
-    describe('Requisição retorna um erro', () => {
+    describe('Requisição retorna um erro por conta do E-mail', () => {
       before(async () => {
         sinon.stub(Client, 'create')
           .resolves(mockClients[0]);
+
         sinon.stub(Client, 'findOne')
-          .resolves(mockClients[0]);
+          .onCall(0)
+          .resolves(mockClients[0])
+          .onCall(1)
+          .resolves(null);
   
         response = await chai
           .request(server)
@@ -99,6 +106,37 @@ describe('Testando rotas de Client', () => {
 
       it('A requisição POST para a rota traz uma messagem de erro "E-mail already exists"', () => {
         expect(response.body).to.deep.equal({ message: 'E-mail already exists' });
+      });
+    });
+
+    describe('Requisição retorna um erro por conta do CPF', () => {
+      before(async () => {
+        sinon.stub(Client, 'create')
+          .resolves(mockClients[0]);
+
+        sinon.stub(Client, 'findOne')
+          .onCall(0)
+          .resolves(null)
+          .onCall(1)
+          .resolves(mockClients[0])
+  
+        response = await chai
+          .request(server)
+          .post('/client')
+          .send(newClient);
+      });
+  
+      after(() => {
+        Client.create.restore();
+        Client.findOne.restore();
+      });
+
+      it('Essa requisição deve retornar código de status 409', () => {
+        expect(response).to.have.status(409);
+      });
+
+      it('A requisição POST para a rota traz uma messagem de erro "CPF already exists"', () => {
+        expect(response.body).to.deep.equal({ message: 'CPF already exists' });
       });
     });
   });
