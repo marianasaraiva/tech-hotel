@@ -14,7 +14,7 @@ const updateReservationController = async (req, res, next) => {
 
     if (!result) return res.status(404).json({ message: 'Reservation does not exist' });
 
-    return res.status(200).json({ message: 'Reservation registered successfully!' });
+    return res.status(200).json({ message: 'Reservation updated successfully!' });
   } catch (error) {
     next(error);
   }

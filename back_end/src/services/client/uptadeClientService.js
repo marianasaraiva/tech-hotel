@@ -7,7 +7,7 @@ const updateClientService = async ({ id, fullName, cpf, email, password }) => {
   if (!clientExist) return null;
 
   const updateClient = await Client.update({ fullName, cpf, email, password }, { where: { id }});
-  
+
   return updateClient[0];
 };
 

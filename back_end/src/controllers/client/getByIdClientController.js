@@ -8,7 +8,7 @@ const getByIdClientController = async (req, res, next) => {
 
     if(!result) return res.status(404).json({ message: 'User does not exist' });
 
-    return res.status(201).json(result);
+    return res.status(200).json(result);
   } catch (error) {
     next(error);
   }
