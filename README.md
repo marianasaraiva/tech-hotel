@@ -2,6 +2,19 @@
 
 Desenvolvimento de aplicação Full Stack, construindo uma API para gerenciar as infomações de reservas de um hotel.
 
+## Gif do projeto:
+<h3 align="center">Page Home and Contact</h3>
+<p align="center">
+  <img src="https://github.com/marianasaraiva/tech-hotel/blob/master/front-end/src/midias/PageContact.gif" alt="Sonhando em Cordas Gif"/>
+</p>
+<h3 align="center">Page Register and Login</h3>
+<p align="center">
+  <img src="https://github.com/marianasaraiva/tech-hotel/blob/master/front-end/src/midias/PageRegisterAndLogin.gif" alt="Sonhando em Cordas Gif"/>
+</p>
+<h3 align="center">Page Reservation</h3>
+<p align="center">
+  <img src="https://github.com/marianasaraiva/tech-hotel/blob/master/front-end/src/midias/PageReservation.gif" alt="Sonhando em Cordas Gif"/>
+</p>
 
 ## Back-end
 
