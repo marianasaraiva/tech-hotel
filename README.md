@@ -1,8 +1,8 @@
-# Tech-Hotel
+# :computer: Tech-Hotel
 
 Desenvolvimento de aplicação Full Stack, construindo uma API para gerenciar as infomações de reservas de um hotel.
 
-## Gif do projeto:
+## :pushpin: Telas do projeto:
 <h3 align="center">Page Home and Contact</h3>
 <p align="center">
   <img src="https://github.com/marianasaraiva/tech-hotel/blob/master/front-end/src/midias/PageContact.gif" alt="Sonhando em Cordas Gif"/>
@@ -16,7 +16,7 @@ Desenvolvimento de aplicação Full Stack, construindo uma API para gerenciar as
   <img src="https://github.com/marianasaraiva/tech-hotel/blob/master/front-end/src/midias/PageReservation.gif" alt="Sonhando em Cordas Gif"/>
 </p>
 
-## Back-end
+## :pushpin: Back-end
 
 ### Habilidades
 
@@ -52,7 +52,7 @@ Criação de migrations, seeders e models para estruturar e popular o banco de d
 Implementação do CRUD das rotas Login, Client, Reservation e Rooms, de acordo com as regras de negócio.
 
 
-## Front-end
+## :pushpin: Front-end
 
 ### Habilidades
 
@@ -76,7 +76,32 @@ Criação do CSS puro, utilizando styled components.
 Design responsivo, pensando em telas e dimensões diversas dos equipamentos.
 
 
-## Autores
+## :pushpin: Docker :wrench:
+
+### Habilidades
+
+Criar um contêiner Docker para o banco de dados mysql.
+
+Criar um contêiner Docker para uma aplicação de front-end.
+
+Criar um contêiner Docker para uma aplicação de back-end.
+
+Orquestrar os três contêineres utilizando o Docker compose.
+
+
+### O que foi desenvolvido
+
+Habilidade de utilizar o Docker para uma aplicação FullStack utilizando Docker compose.
+
+
+## :pushpin: Como acessar o projeto
+
+Fazer um git clone do projeto.
+
+Ter o ambiente configurado para utilizar docker e rodar o comando `docker-compose up`
+
+
+## :thought_balloon: Autores
 
 - GitHub - [Jonatas Passos](https://github.com/jonataspassos96)
 - GitHub - [Mariana Saraiva](https://github.com/marianasaraiva)
