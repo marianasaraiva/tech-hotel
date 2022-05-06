@@ -52,6 +52,11 @@ Criação de migrations, seeders e models para estruturar e popular o banco de d
 Implementação do CRUD das rotas Login, Client, Reservation e Rooms, de acordo com as regras de negócio.
 
 
+### Documentação da API
+
+[Acesse a documentação aqui](https://documenter.getpostman.com/view/20097451/UyxbsqtS)
+
+
 ## :pushpin: Front-end
 
 ### Habilidades
