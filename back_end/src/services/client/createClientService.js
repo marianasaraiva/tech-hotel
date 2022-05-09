@@ -1,11 +1,14 @@
+const Op = require('Sequelize').Op
 const { Client } = require('../../models');
 
 const createClientService = async (client) => {
-  const findByEmail = await Client.findOne({ where: { email: client.email  } });
-  const findByCpf = await Client.findOne({ where: { cpf: client.cpf  } });
+  const findClient = await Client.findOne({
+    where: { [Op.or]: [{ email: client.email }, { cpf: client.cpf }] },
+  });
+  // const findByCpf = await Client.findOne({ where: { cpf: client.cpf  } });
 
-  if (findByEmail) return 'E-mail already exists';
-  if (findByCpf) return 'CPF already exists';
+  if (findClient) return 'Client already registered';
+  // if (findByCpf) return 'CPF already exists';
 
   const result = await Client.create(client);
 
