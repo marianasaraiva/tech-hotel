@@ -101,9 +101,12 @@ Habilidade de utilizar o Docker para uma aplicação FullStack utilizando Docker
 
 ## :pushpin: Como acessar o projeto
 
-Fazer um git clone do projeto.
-
-Ter o ambiente configurado para utilizar docker e rodar o comando `docker-compose up`
+1. Clone e rode o projeto localmente:
+    * `git clone git@github.com:marianasaraiva/tech-hotel.git`
+    * `npm install`
+    * configurar as variaveis de ambiente, conforme arquivo `.env.example`
+    * ter o ambiente configurado para utilizar docker
+    * `docker-compose up`
 
 
 ## :thought_balloon: Autores
