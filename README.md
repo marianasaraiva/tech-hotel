@@ -1,6 +1,6 @@
 # :computer: Tech-Hotel
 
-Desenvolvimento de aplicação Full Stack, construindo uma API para gerenciar as infomações de reservas de um hotel.
+Desenvolvimento de aplicação Full Stack, construindo uma API para gerenciar as informações de reservas de um hotel.
 
 ## :pushpin: Telas do projeto:
 <h3 align="center">Page Home and Contact</h3>
